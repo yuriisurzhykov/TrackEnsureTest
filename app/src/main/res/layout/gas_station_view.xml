@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/rectangle_with_corners">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/gas_station_name"
-        android:layout_width="wrap_content"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:text="GasStation"
-        style="@style/TitleText"/>
+        android:background="@drawable/rectangle_with_corners">
 
-    <TextView
-        android:id="@+id/fuel_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/gas_station_name"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        style="@style/MainText"
-        android:text="Fuel type" />
+        <TextView
+            android:id="@+id/gas_station_name"
+            style="@style/TitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="GasStation" />
 
-    <TextView
-        android:id="@+id/fuel_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/fuel_type"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        style="@style/MainText"
-        android:text="Fuel amount"/>
+        <TextView
+            android:id="@+id/fuel_type"
+            style="@style/MainText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/gas_station_name"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:text="Fuel type" />
 
-    <TextView
-        android:id="@+id/cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/fuel_type"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        style="@style/MainText"
-        android:text="Fuel cost"/>
+        <TextView
+            android:id="@+id/fuel_amount"
+            style="@style/MainText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/fuel_type"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:text="Fuel amount" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/cost"
+            style="@style/MainText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/fuel_type"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="Fuel cost" />
+
+    </RelativeLayout>
+</layout>
