@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/rectangle_with_corners">
+
+    <TextView
+        android:id="@+id/gas_station_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:text="GasStation"
+        style="@style/TitleText"/>
+
+    <TextView
+        android:id="@+id/fuel_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/gas_station_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        style="@style/MainText"
+        android:text="Fuel type" />
+
+    <TextView
+        android:id="@+id/fuel_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/fuel_type"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        style="@style/MainText"
+        android:text="Fuel amount"/>
+
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/fuel_type"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        style="@style/MainText"
+        android:text="Fuel cost"/>
 
 </RelativeLayout>

@@ -1,8 +1,10 @@
-package com.yuriysurzhikov.trackensuretest;
+package com.yuriysurzhikov.trackensuretest.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.yuriysurzhikov.trackensuretest.R;
 
 public class MainActivity extends AppCompatActivity {
 
