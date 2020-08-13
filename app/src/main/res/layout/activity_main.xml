@@ -8,13 +8,13 @@
     tools:context=".view.activities.MainActivity">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
+        android:id="@+id/main_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/tertiaryColor"
         app:tabMode="auto"
-        android:theme="@style/TitleText"
+        app:tabIndicatorFullWidth="true"
         app:tabSelectedTextColor="@color/tertiaryColor"/>
     
     <androidx.viewpager.widget.ViewPager
