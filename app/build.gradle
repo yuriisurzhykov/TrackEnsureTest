@@ -64,4 +64,10 @@ dependencies {
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    //Google Play services
+    implementation 'com.google.maps:google-maps-services:0.2.4'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'org.slf4j:slf4j-nop:1.7.25'
+    implementation 'com.google.firebase:firebase-database:19.3.1'
+
 }

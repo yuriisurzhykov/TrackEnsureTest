@@ -2,7 +2,7 @@ package com.yuriysurzhikov.trackensuretest.presenter.contracts
 
 import android.os.Bundle
 
-open interface MainActivityContract {
+interface MainActivityContract {
     interface Model {
 
     }

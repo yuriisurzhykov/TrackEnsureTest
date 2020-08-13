@@ -85,6 +85,8 @@ public class StationsFragment
         TextView view1 = view.findViewById(R.id.text);
         if (savedInstanceState != null)
             view1.setText(savedInstanceState.getCharSequence(ARG_TAB));
+        View floatingButton = view.findViewById(R.id.add_station_button);
+        floatingButton.setOnClickListener(v -> presenter.openAddingActivity(context));
     }
 
     @Override

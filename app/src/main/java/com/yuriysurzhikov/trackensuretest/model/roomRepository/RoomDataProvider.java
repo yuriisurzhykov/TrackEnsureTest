@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.yuriysurzhikov.trackensuretest.config.App;
 import com.yuriysurzhikov.trackensuretest.model.MainRepositoryContract;
+import com.yuriysurzhikov.trackensuretest.model.entities.Location;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,6 +33,71 @@ public class RoomDataProvider implements MainRepositoryContract {
     @NotNull
     @Override
     public LiveData<List<Refueling>> getAllStations() {
+        /*addRefuelingNote(new Refueling(
+                0,
+                "WOG",
+                "Disel",
+                120,
+                1200,
+                new Location(
+                        0,
+                        12.145214,
+                        45.412511,
+                        "Автозаправка WOG"
+                )
+        ));
+        addRefuelingNote(new Refueling(
+                0,
+                "WOG",
+                "Disel",
+                120,
+                1200,
+                new Location(
+                        0,
+                        12.145214,
+                        45.412511,
+                        "Автозаправка WOG"
+                )
+        ));
+        addRefuelingNote(new Refueling(
+                0,
+                "WOG",
+                "Disel",
+                120,
+                1200,
+                new Location(
+                        0,
+                        12.145214,
+                        45.412511,
+                        "Автозаправка WOG"
+                )
+        ));
+        addRefuelingNote(new Refueling(
+                0,
+                "WOG",
+                "Disel",
+                120,
+                1200,
+                new Location(
+                        0,
+                        12.145214,
+                        45.412511,
+                        "Автозаправка WOG"
+                )
+        ));
+        addRefuelingNote(new Refueling(
+                0,
+                "WOG",
+                "Disel",
+                120,
+                1200,
+                new Location(
+                        0,
+                        12.145214,
+                        45.412511,
+                        "Автозаправка WOG"
+                )
+        ));*/
         return gasStations;
     }
 

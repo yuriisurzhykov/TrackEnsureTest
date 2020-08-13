@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TrackEnsureTest</string>
+    <string name="google_maps_key">AIzaSyA4p2Itzyu1U4QbrmpcO5fQxKhWroNWqP0</string>
+    <string name="сhoose_point_on_map">Выберите точку на карте</string>
 </resources>

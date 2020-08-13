@@ -2,9 +2,11 @@ package com.yuriysurzhikov.trackensuretest.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.StationsFragmentContract;
+import com.yuriysurzhikov.trackensuretest.view.activities.AddingActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +25,8 @@ public class StationsFragmentPresenter implements StationsFragmentContract.Prese
     }
     @Override
     public void openAddingActivity(@NotNull Context context) {
-
+        Intent intent = new Intent(context, AddingActivity.class);
+        context.startActivity(intent);
     }
 
     @Override
