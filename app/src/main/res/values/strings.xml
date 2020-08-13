@@ -2,4 +2,10 @@
     <string name="app_name">TrackEnsureTest</string>
     <string name="google_maps_key">AIzaSyA4p2Itzyu1U4QbrmpcO5fQxKhWroNWqP0</string>
     <string name="сhoose_point_on_map">Выберите точку на карте</string>
+    <string name="fuel_type">Fuel type</string>
+    <string name="amount">Amount</string>
+    <string name="provider_name">Provider name</string>
+    <string name="fill_in_all_the_fields">Fill in all the fields</string>
+    <string name="save">Save</string>
+    <string name="total_cost">Total cost</string>
 </resources>

@@ -11,4 +11,6 @@ data class Location (
         val lng: Double,
         @SerializedName("placeName")
         val placeName: String
-)
+) {
+    constructor() : this(0, 0.0, 0.0, "")
+}

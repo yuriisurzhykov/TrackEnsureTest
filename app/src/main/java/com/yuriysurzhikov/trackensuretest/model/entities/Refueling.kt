@@ -23,4 +23,6 @@ data class Refueling (
         @SerializedName("location")
         @TypeConverters(DataConverter::class)
         val location: Location
-)
+) {
+    constructor() : this(0, "", "", 0F, 0F, Location())
+}

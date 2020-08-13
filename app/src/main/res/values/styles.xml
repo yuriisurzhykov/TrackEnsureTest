@@ -12,6 +12,7 @@
     <style name="TitleText" parent="AppTheme">
         <item name="android:textSize">20sp</item>
         <item name="android:layout_marginLeft">10sp</item>
+        <item name="android:layout_marginRight">10sp</item>
         <item name="android:layout_marginTop">10sp</item>
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>

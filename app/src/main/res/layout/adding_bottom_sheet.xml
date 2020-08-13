@@ -1,42 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bottom_sheet"
-    app:layout_behavior="@string/bottom_sheet_behavior">
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <View
         android:id="@+id/hide_line"
-        android:layout_width="100sp"
-        android:layout_height="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="15sp"
-        android:background="@color/secondaryColor" />
+        android:layout_width="50sp"
+        android:layout_height="3dp"
+        android:layout_marginTop="20sp"
+        android:background="@color/secondaryLightColor" />
 
     <TextView
         android:id="@+id/start_text"
-        style="@style/MainText"
+        style="@style/TitleText"
+        android:layout_marginTop="9sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/hide_line"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="15sp"
-        android:text="Fill all fields" />
+        android:text="@string/fill_in_all_the_fields" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/start_text"
         android:layout_margin="15sp"
-        android:hint="Provider name">
+        android:hint="@string/provider_name"
+        app:startIconDrawable="@drawable/ic_fuel_station"
+        app:startIconContentDescription="@string/provider_name"
+        app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/provider_name_field"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="textCapWords"/>
 
-</com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/additional_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/fields_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fuel_type"
+                style="@style/TitleText"/>
+
+            <NumberPicker
+                android:id="@+id/fuel_type_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="100sp"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amount"
+                style="@style/TitleText"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/amount"
+                app:startIconContentDescription="@string/provider_name"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fuel_amount_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberSigned"
+                    android:gravity="center_horizontal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15sp"
+        android:hint="@string/total_cost"
+        app:startIconDrawable="@drawable/ic_dollar"
+        app:startIconContentDescription="@string/provider_name"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cost_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/save"
+        android:background="@drawable/button_shape"/>
+
+</LinearLayout>

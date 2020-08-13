@@ -27,6 +27,7 @@
         android:text="Choose this point"
         android:padding="15dp"
         style="@style/TitleText"
-        android:background="@drawable/button_shape"/>
+        android:background="@drawable/button_shape"
+        android:onClick="openBottomSheet"/>
     
 </RelativeLayout>

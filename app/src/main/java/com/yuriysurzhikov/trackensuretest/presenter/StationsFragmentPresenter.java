@@ -31,7 +31,7 @@ public class StationsFragmentPresenter implements StationsFragmentContract.Prese
 
     @Override
     public void deleteRefuelingNote(@NotNull Refueling refueling) {
-
+        
     }
 
     @Override
