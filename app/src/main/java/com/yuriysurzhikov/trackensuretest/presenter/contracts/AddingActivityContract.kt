@@ -25,7 +25,7 @@ interface AddingActivityContract {
         fun showError(message: String)
         fun showSuccess(message: String)
         fun openBottomSheet(view: android.view.View)
-        fun finish()
+        fun closeBottomSheet()
         fun save(view: android.view.View)
     }
     
@@ -37,5 +37,8 @@ interface AddingActivityContract {
         fun changeAmount(amount: Int)
         fun changeCost(cost: Float)
         fun setOpenSheetButton(activity: BottomSheetDialogFragment)
+        fun getModel(): Refueling
+        fun setModel(refueling: Refueling)
+        fun setLocation(latlng: LatLng)
     }
 }

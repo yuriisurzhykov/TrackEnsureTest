@@ -9,7 +9,7 @@
         android:id="@+id/edit_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/edit_dialog_button"
+        android:background="@color/tertiaryColor"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -18,14 +18,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Edit this note" />
+            android:text="Edit this record" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/delete_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/delete_dialog_button"
+        android:background="@color/secondaryLightColor"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Delete this note" />
+            android:text="Delete this record" />
     </LinearLayout>
 
 </LinearLayout>

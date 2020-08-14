@@ -2,6 +2,7 @@ package com.yuriysurzhikov.trackensuretest.view.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.ArraySet;
@@ -13,12 +14,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import com.google.gson.Gson;
 import com.yuriysurzhikov.trackensuretest.R;
 import com.yuriysurzhikov.trackensuretest.model.MainRepository;
 import com.yuriysurzhikov.trackensuretest.model.MainRepositoryContract;
@@ -26,14 +26,14 @@ import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.RoomDataProvider;
 import com.yuriysurzhikov.trackensuretest.presenter.StationsFragmentPresenter;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.StationsFragmentContract;
+import com.yuriysurzhikov.trackensuretest.view.activities.AddingActivity;
+import com.yuriysurzhikov.trackensuretest.view.activities.EditingActivity;
 import com.yuriysurzhikov.trackensuretest.view.adapters.RefuelingRecyclerAdapter;
 import com.yuriysurzhikov.trackensuretest.view.dialogs.ChoiceDialog;
 
 
-import java.time.chrono.HijrahChronology;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class StationsFragment
         extends ProjectFragment
@@ -109,7 +109,11 @@ public class StationsFragment
 
             @Override
             public void onEditClickListener(View view) {
-
+                Bundle bundle = new Bundle();
+                bundle.putString(ARG_TAB, new Gson().toJson(gasStations.get(position)));
+                Intent intent = new Intent(context, EditingActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         dialog.show(getChildFragmentManager(), HINT_TAB);

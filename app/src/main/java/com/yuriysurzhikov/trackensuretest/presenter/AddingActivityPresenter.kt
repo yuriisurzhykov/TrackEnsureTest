@@ -2,6 +2,7 @@ package com.yuriysurzhikov.trackensuretest.presenter
 
 import android.content.Context
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yuriysurzhikov.trackensuretest.model.MainRepository
@@ -12,15 +13,8 @@ import com.yuriysurzhikov.trackensuretest.presenter.contracts.AddingActivityCont
 class AddingActivityPresenter(val view: AddingActivityContract.View, val context: Context) : AddingActivityContract.Presenter {
 
     val BOTTOM_SHEET_TAG = "bottom_sheet_dialog"
-    var model: Refueling
-    var location: Location
-
-    init {
-        model = Refueling()
-        location = Location()
-        println(model)
-    }
-
+    private var model: Refueling = Refueling()
+    var location: Location = Location()
 
 
     override fun checkFields(): Boolean {
@@ -57,6 +51,19 @@ class AddingActivityPresenter(val view: AddingActivityContract.View, val context
 
     override fun setOpenSheetButton(activity: BottomSheetDialogFragment) {
 
+    }
+
+    override fun getModel(): Refueling {
+        return model
+    }
+
+    override fun setModel(refueling: Refueling) {
+        model = refueling
+    }
+
+    override fun setLocation(latlng: LatLng) {
+        model.location.lng = latlng.longitude
+        model.location.lat = latlng.latitude
     }
 
     override fun onMapReady(p0: GoogleMap?) {

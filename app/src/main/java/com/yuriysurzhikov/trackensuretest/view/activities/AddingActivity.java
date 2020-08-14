@@ -13,7 +13,6 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 import com.google.gson.Gson;
 import com.yuriysurzhikov.trackensuretest.R;
-import com.yuriysurzhikov.trackensuretest.model.entities.Location;
 import com.yuriysurzhikov.trackensuretest.presenter.*;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.*;
 import com.yuriysurzhikov.trackensuretest.view.dialogs.AddingBottomSheetDialog;
@@ -25,11 +24,10 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
     private final String BOTTOM_SHEET_TAG = "bottom_sheet_dialog";
 
     private AddingActivityContract.Presenter presenter;
+    private AddingBottomSheetDialog dialog;
     private AddingBottomSheetContract.Presenter bottomSheetPresenter;
     private SupportMapFragment mapFragment;
-    private MapView mapView;
     private GoogleMap googleMap;
-    private Location location;
     private Button openDialogButton;
 
     @Override
@@ -42,7 +40,6 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
     }
 
     private void init() {
-        location = new Location();
         presenter = new AddingActivityPresenter(this, this);
         openDialogButton = findViewById(R.id.open_bottom_sheet);
     }
@@ -50,9 +47,14 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
 
     @Override
     public void openBottomSheet(View view) {
-        AddingBottomSheetDialog dialog = new AddingBottomSheetDialog(this);
+        dialog = new AddingBottomSheetDialog(this);
         dialog.setPresenter(presenter);
         dialog.show(getSupportFragmentManager(), BOTTOM_SHEET_TAG);
+    }
+
+    @Override
+    public void closeBottomSheet() {
+        dialog.dismiss();
     }
 
     @Override
@@ -91,6 +93,7 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
                         .title("Gas station")
                         .draggable(true)
         );
+        presenter.setLocation(latLng);
         setNextButtonActive();
         googleMap.setOnMarkerDragListener(presenter);
     }

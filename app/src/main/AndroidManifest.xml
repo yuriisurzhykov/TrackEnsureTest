@@ -38,6 +38,7 @@
         <activity
             android:name=".view.activities.AddingActivity"
             android:label="Adding new note" />
+        <activity android:name=".view.activities.EditingActivity" />
     </application>
 
 </manifest>

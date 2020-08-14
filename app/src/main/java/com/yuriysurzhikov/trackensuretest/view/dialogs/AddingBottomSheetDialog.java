@@ -13,27 +13,28 @@ import androidx.annotation.*;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 import com.yuriysurzhikov.trackensuretest.R;
 import com.yuriysurzhikov.trackensuretest.model.entities.Location;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.AddingActivityContract;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.AddingBottomSheetContract;
+import com.yuriysurzhikov.trackensuretest.presenter.contracts.EditingActivityContract;
 
 public class AddingBottomSheetDialog extends BottomSheetDialogFragment implements AddingBottomSheetContract.View {
 
     private final String BOTTOM_SHEET_TAG = "bottom_sheet_dialog";
     private static final String TAG = "AddingBottomSheetDialog";
 
-    private Activity activity;
-    private View view;
-    private NumberPicker fuelTypes;
-    private TextInputEditText fuelAmount;
-    private TextInputEditText providerName;
-    private TextInputEditText costText;
-    private Refueling refueling;
-    private Location location;
+    protected Activity activity;
+    protected View view;
+    protected NumberPicker fuelTypes;
+    protected TextInputEditText fuelAmount;
+    protected TextInputEditText providerName;
+    protected TextInputEditText costText;
+    protected Refueling refueling;
 
-    private String[] fuelTypesList;
+    protected String[] fuelTypesList;
 
     private AddingActivityContract.Presenter presenter;
 
@@ -49,8 +50,15 @@ public class AddingBottomSheetDialog extends BottomSheetDialogFragment implement
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         refueling = new Refueling();
+        if(savedInstanceState != null)
+            restoreInstanceState(savedInstanceState);
         Log.d(TAG, "onCreateDialog: " + refueling.toString());
         return super.onCreateDialog(savedInstanceState);
+    }
+
+    private void restoreInstanceState(Bundle state) {
+        presenter.setModel(new Gson().fromJson(state.getString("model"), Refueling.class));
+        fuelAmount.setText(String.valueOf(presenter.getModel().getFuelAmount()));
     }
 
     @Override
@@ -61,7 +69,7 @@ public class AddingBottomSheetDialog extends BottomSheetDialogFragment implement
         setUpPickers();
     }
 
-    private void setUpPickers() {
+    protected void setUpPickers() {
         fuelTypesList = getResources().getStringArray(R.array.fuel_types);
         fuelTypes = view.findViewById(R.id.fuel_type_picker);
         fuelTypes.setMinValue(0);
@@ -132,5 +140,11 @@ public class AddingBottomSheetDialog extends BottomSheetDialogFragment implement
     @Override
     public void stopLoading() {
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("model", new Gson().toJson(presenter.getModel()));
     }
 }
