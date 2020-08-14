@@ -65,7 +65,7 @@ public class StationsFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.stations_layout_fragment, container, false);
-        repository.getAllStations().observe(getViewLifecycleOwner(), refuelings -> {
+        repository.getAllRefuelings().observe(getViewLifecycleOwner(), refuelings -> {
             gasStations.addAll(refuelings);
             Log.d(TAG, "onCreateView: " + refuelings.size());
             recyclerAdapter = RefuelingRecyclerAdapter.getInstance(context, this);

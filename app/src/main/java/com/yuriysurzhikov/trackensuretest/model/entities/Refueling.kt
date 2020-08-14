@@ -11,18 +11,18 @@ import com.yuriysurzhikov.trackensuretest.utils.DataConverter
 data class Refueling (
         @PrimaryKey(autoGenerate = true)
         @SerializedName("refuelingId")
-        val refuelingId: Long,
+        var refuelingId: Long,
         @SerializedName("provider")
-        val provider: String,
+        var provider: String,
         @SerializedName("fuelType")
-        val fuelType: String,
+        var fuelType: String,
         @SerializedName("fuelAmount")
-        val fuelAmount: Float,
+        var fuelAmount: Float,
         @SerializedName("cost")
-        val cost: Float,
+        var cost: Float,
         @SerializedName("location")
         @TypeConverters(DataConverter::class)
-        val location: Location
+        var location: Location
 ) {
     constructor() : this(0, "", "", 0F, 0F, Location())
 }

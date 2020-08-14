@@ -10,8 +10,8 @@ class AddingBottomSheetPresenter(view: AddingBottomSheetContract.View, context: 
         var refueling = Refueling()
     }
 
-    override fun onCreate() {
-        TODO("Not yet implemented")
+    override fun uploadRefuelingNote(refueling: Refueling) {
+
     }
 
 

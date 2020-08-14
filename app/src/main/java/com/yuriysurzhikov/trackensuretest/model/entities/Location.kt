@@ -3,14 +3,12 @@ package com.yuriysurzhikov.trackensuretest.model.entities
 import com.google.gson.annotations.SerializedName
 
 data class Location (
-        @SerializedName("locationId")
-        val locationId: Long,
         @SerializedName("lat")
-        val lat: Double,
+        var lat: Double,
         @SerializedName("lng")
-        val lng: Double,
+        var lng: Double,
         @SerializedName("placeName")
-        val placeName: String
+        var placeName: String
 ) {
-    constructor() : this(0, 0.0, 0.0, "")
+    constructor() : this(0.0, 0.0, "")
 }
