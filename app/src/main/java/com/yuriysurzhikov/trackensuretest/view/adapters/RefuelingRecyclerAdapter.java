@@ -24,6 +24,7 @@ public class RefuelingRecyclerAdapter extends RecyclerView.Adapter<RefuelingRecy
 
     private RefuelingRecyclerAdapter(Context context, OnStationLongClickListener listener) {
         this.context = context;
+        this.longClickListener = listener;
     }
 
     public static RefuelingRecyclerAdapter getInstance(Context context, OnStationLongClickListener listener) {
@@ -34,7 +35,7 @@ public class RefuelingRecyclerAdapter extends RecyclerView.Adapter<RefuelingRecy
     @Override
     public RefuelingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gas_station_view, parent, false);
-        return new RefuelingViewHolder(view);
+        return new RefuelingViewHolder(view, longClickListener);
     }
 
     @Override
@@ -53,17 +54,20 @@ public class RefuelingRecyclerAdapter extends RecyclerView.Adapter<RefuelingRecy
         list = refuelingList;
     }
 
-    public class RefuelingViewHolder extends RecyclerView.ViewHolder {
+    public class RefuelingViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
 
         private View view;
+        private OnStationLongClickListener clickListener;
         private TextView titleTextView;
         private TextView fuelTypeTextView;
         private TextView fuelAmountTextView;
         private TextView costTextView;
 
-        public RefuelingViewHolder(@NonNull View itemView) {
+        public RefuelingViewHolder(@NonNull View itemView, OnStationLongClickListener clickListener) {
             super(itemView);
             this.view = itemView;
+            this.clickListener = clickListener;
+            view.setOnLongClickListener(this);
             titleTextView = view.findViewById(R.id.gas_station_name);
             fuelTypeTextView = view.findViewById(R.id.fuel_type);
             fuelAmountTextView = view.findViewById(R.id.fuel_amount);
@@ -75,6 +79,12 @@ public class RefuelingRecyclerAdapter extends RecyclerView.Adapter<RefuelingRecy
             fuelTypeTextView.setText(refueling.getFuelType());
             fuelAmountTextView.setText(String.valueOf(refueling.getFuelAmount()));
             costTextView.setText(String.valueOf(refueling.getCost()));
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            clickListener.onLongClickListener(getAdapterPosition());
+            return false;
         }
     }
 

@@ -1,19 +1,13 @@
 package com.yuriysurzhikov.trackensuretest.presenter
 
-import android.app.Activity
 import android.content.Context
-import android.os.Bundle
-import android.view.View
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.gson.Gson
 import com.yuriysurzhikov.trackensuretest.model.MainRepository
 import com.yuriysurzhikov.trackensuretest.model.entities.Location
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.AddingActivityContract
-import com.yuriysurzhikov.trackensuretest.presenter.contracts.AddingBottomSheetContract
-import com.yuriysurzhikov.trackensuretest.view.dialogs.AddingBottomSheetDialog
 
 class AddingActivityPresenter(val view: AddingActivityContract.View, val context: Context) : AddingActivityContract.Presenter {
 

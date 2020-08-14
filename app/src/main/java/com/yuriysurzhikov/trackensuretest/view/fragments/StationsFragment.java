@@ -1,5 +1,6 @@
 package com.yuriysurzhikov.trackensuretest.view.fragments;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,19 +13,26 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.yuriysurzhikov.trackensuretest.R;
+import com.yuriysurzhikov.trackensuretest.model.MainRepository;
 import com.yuriysurzhikov.trackensuretest.model.MainRepositoryContract;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.RoomDataProvider;
 import com.yuriysurzhikov.trackensuretest.presenter.StationsFragmentPresenter;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.StationsFragmentContract;
 import com.yuriysurzhikov.trackensuretest.view.adapters.RefuelingRecyclerAdapter;
+import com.yuriysurzhikov.trackensuretest.view.dialogs.ChoiceDialog;
 
 
+import java.time.chrono.HijrahChronology;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class StationsFragment
@@ -34,9 +42,10 @@ public class StationsFragment
     private static final String TAG = "StationsFragment";
 
     private static final String ARG_TAB = "ARG_TAB";
+    private static final String HINT_TAB = "HINT_TAB";
     private Context context;
     private View view;
-    private Set<Refueling> gasStations;
+    private List<Refueling> gasStations;
     private MainRepositoryContract repository;
 
     private StationsFragmentContract.Presenter presenter;
@@ -47,7 +56,7 @@ public class StationsFragment
         this.context = context;
         repository = RoomDataProvider.getInstance(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            gasStations = new ArraySet<>();
+            gasStations = new ArrayList<>();
         }
         presenter = StationsFragmentPresenter.getInstance(getActivity(), this);
     }
@@ -66,6 +75,7 @@ public class StationsFragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.stations_layout_fragment, container, false);
         repository.getAllRefuelings().observe(getViewLifecycleOwner(), refuelings -> {
+            gasStations.clear();
             gasStations.addAll(refuelings);
             Log.d(TAG, "onCreateView: " + refuelings.size());
             recyclerAdapter = RefuelingRecyclerAdapter.getInstance(context, this);
@@ -91,6 +101,17 @@ public class StationsFragment
 
     @Override
     public void onLongClickListener(int position) {
+        ChoiceDialog dialog = new ChoiceDialog(getContext(), new ChoiceDialog.DialogListener() {
+            @Override
+            public void onDeleteClickListener(View view) {
+                MainRepository.getInstance().deleteRefuelingNote(gasStations.get(position));
+            }
 
+            @Override
+            public void onEditClickListener(View view) {
+
+            }
+        });
+        dialog.show(getChildFragmentManager(), HINT_TAB);
     }
 }
