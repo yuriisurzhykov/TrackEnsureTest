@@ -87,7 +87,7 @@ public class AddingBottomSheetDialog extends BottomSheetDialogFragment implement
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() != 0)
-                    presenter.changeAmount(Integer.parseInt(s.toString()));
+                    presenter.changeAmount(Float.parseFloat(s.toString()));
                 else
                     presenter.changeAmount(0);
             }

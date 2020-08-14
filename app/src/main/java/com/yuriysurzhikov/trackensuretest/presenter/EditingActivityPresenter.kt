@@ -7,9 +7,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.yuriysurzhikov.trackensuretest.model.MainRepository
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling
+import com.yuriysurzhikov.trackensuretest.model.gecoding.ReverseGeocoding
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.EditingActivityContract
+import com.yuriysurzhikov.trackensuretest.utils.Observer
 
-class EditingActivityPresenter(val view: EditingActivityContract.View, val context: Context) : EditingActivityContract.Presenter {
+class EditingActivityPresenter(val view: EditingActivityContract.View, val context: Context) : EditingActivityContract.Presenter, Observer {
 
     private var model = Refueling()
     private val TAG = "EditingActivityPresent"
@@ -17,6 +19,7 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
     override fun loadLocation(location: LatLng) {
         model.location.lat = location.latitude
         model.location.lng = location.longitude
+        ReverseGeocoding(context, this, location)
     }
 
     override fun setModel(refueling: Refueling) {
@@ -25,6 +28,7 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
 
     override fun updateRefueling() {
         if(checkFields()) {
+            Log.d(TAG, "saveRefuelingNote: " + model.location.placeName)
             MainRepository.getInstance().updateRefuelingNote(model)
             view.showMessage("Data has been successfully changed")
             view.closeActivity()
@@ -41,8 +45,8 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
         model.fuelType = type
     }
 
-    override fun changeAmount(amount: Int) {
-        model.fuelAmount = amount.toFloat()
+    override fun changeAmount(amount: Float) {
+        model.fuelAmount = amount
     }
 
     override fun changeCost(cost: Float) {
@@ -65,9 +69,10 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
         view.createMarker(LatLng(model.location.lat, model.location.lng))
     }
 
-    override fun onMarkerDragEnd(p0: Marker?) {
-        model.location.lng = p0?.position?.longitude!!
-        model.location.lng = p0.position?.latitude!!
+    override fun onMarkerDragEnd(p0: Marker) {
+        model.location.lng = p0.position.longitude
+        model.location.lat = p0.position.latitude
+        ReverseGeocoding(context, this, p0.position)
     }
 
     override fun onMarkerDragStart(p0: Marker?) {
@@ -81,6 +86,12 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
     override fun onMapLongClick(p0: LatLng) {
         model.location.lng = p0.longitude
         model.location.lat = p0.latitude
-        view.createMarker(p0)
+        ReverseGeocoding(context, this, p0)
+    }
+
+    override fun update(placeName: String) {
+        Log.d(TAG, "update: location name updated")
+        model.location.placeName = placeName
+        view.createMarker(LatLng(model.location.lat, model.location.lng))
     }
 }

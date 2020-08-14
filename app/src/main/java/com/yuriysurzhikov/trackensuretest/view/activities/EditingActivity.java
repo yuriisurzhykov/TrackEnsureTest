@@ -3,6 +3,7 @@ package com.yuriysurzhikov.trackensuretest.view.activities;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
     private EditingActivityContract.Presenter presenter;
     private Refueling refueling;
     private GoogleMap googleMap;
+    private Button openDialogButton;
     private SupportMapFragment mapFragment;
     private EditingBottomSheet dialog;
 
@@ -50,7 +52,8 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
             refueling = new Gson().fromJson(bundle.getString(ARG_TAB), Refueling.class);
             presenter.setModel(refueling);
         }
-
+        openDialogButton = findViewById(R.id.open_bottom_sheet);
+        openDialogButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -58,11 +61,18 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
         finish();
     }
 
+    public void save(View view) {
+        presenter.updateRefueling();
+    }
+
     @Override
-    public void openBottomSheet() {
+    public void openBottomSheet(View view) {
         if(dialog == null) {
-            dialog = new EditingBottomSheet(this, refueling);
+            dialog = new EditingBottomSheet(this, presenter.getModel());
             dialog.setPresenter(presenter);
+            Bundle bundle = new Bundle();
+            bundle.putString("model", new Gson().toJson(presenter.getModel()));
+            dialog.setArguments(bundle);
         }
         dialog.show(getSupportFragmentManager(), SHEET_TAG);
     }
@@ -75,10 +85,11 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
     @Override
     public void createMarker(@NotNull LatLng latLng) {
         googleMap.clear();
+        Log.d(TAG, "createMarker: " + presenter.getModel().getLocation().getPlaceName());
         MarkerOptions marker = new MarkerOptions()
                 .position(latLng)
                 .draggable(true)
-                .title(refueling.getLocation().getPlaceName());
+                .title(presenter.getModel().getLocation().getPlaceName());
         googleMap.addMarker(marker);
     }
 

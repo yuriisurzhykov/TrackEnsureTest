@@ -86,13 +86,7 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
 
     @Override
     public void onMapLongClick(com.google.android.gms.maps.model.LatLng latLng) {
-        googleMap.clear();
-        googleMap.addMarker(
-                new MarkerOptions()
-                        .position(latLng)
-                        .title("Gas station")
-                        .draggable(true)
-        );
+
         presenter.setLocation(latLng);
         setNextButtonActive();
         googleMap.setOnMarkerDragListener(presenter);
@@ -111,5 +105,21 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
     @Override
     public void showSuccess(@NotNull String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void closeActivity() {
+        finish();
+    }
+
+    @Override
+    public void createMarker(@NotNull LatLng latlng) {
+        googleMap.clear();
+        googleMap.addMarker(
+                new MarkerOptions()
+                        .position(latlng)
+                        .title(presenter.getModel().getLocation().getPlaceName())
+                        .draggable(true)
+        );
     }
 }

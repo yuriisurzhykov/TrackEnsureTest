@@ -1,5 +1,6 @@
 package com.yuriysurzhikov.trackensuretest.presenter.contracts
 
+import android.view.View
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
@@ -12,7 +13,7 @@ interface EditingActivityContract {
 
     interface View {
         fun closeActivity()
-        fun openBottomSheet()
+        fun openBottomSheet(view: android.view.View)
         fun closeBottomSheet()
         fun createMarker(latLng: LatLng)
         fun showMessage(message: String)
@@ -24,7 +25,7 @@ interface EditingActivityContract {
         fun updateRefueling()
         fun changeProvider(name: String)
         fun changeFuelType(type: String)
-        fun changeAmount(amount: Int)
+        fun changeAmount(amount: Float)
         fun changeCost(cost: Float)
         fun getModel(): Refueling
         fun checkFields(): Boolean

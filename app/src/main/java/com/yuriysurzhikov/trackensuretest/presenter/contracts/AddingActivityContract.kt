@@ -26,6 +26,8 @@ interface AddingActivityContract {
         fun showSuccess(message: String)
         fun openBottomSheet(view: android.view.View)
         fun closeBottomSheet()
+        fun closeActivity()
+        fun createMarker(latlng: LatLng)
         fun save(view: android.view.View)
     }
     
@@ -34,7 +36,7 @@ interface AddingActivityContract {
         fun saveRefuelingNote()
         fun changeProvider(name: String)
         fun changeFuelType(type: String)
-        fun changeAmount(amount: Int)
+        fun changeAmount(amount: Float)
         fun changeCost(cost: Float)
         fun setOpenSheetButton(activity: BottomSheetDialogFragment)
         fun getModel(): Refueling

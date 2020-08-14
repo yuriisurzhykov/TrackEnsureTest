@@ -43,6 +43,6 @@ public class MainRepository implements MainRepositoryContract {
 
     @Override
     public void updateRefuelingNote(@NotNull Refueling station) {
-
+        roomDataProvider.updateRefuelingNote(station);
     }
 }
