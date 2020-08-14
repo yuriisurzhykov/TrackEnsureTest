@@ -8,6 +8,7 @@
     android:background="@drawable/rectangle_with_corners">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Provider"
@@ -15,7 +16,7 @@
         android:layout_margin="5sp"/>
 
     <TextView
-        android:id="@+id/address_text"
+        android:id="@+id/subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Address"
@@ -23,6 +24,7 @@
         android:layout_margin="5sp"/>
 
     <LinearLayout
+        android:id="@+id/table_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

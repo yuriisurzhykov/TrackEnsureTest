@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.yuriysurzhikov.trackensuretest.config.App;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
+import com.yuriysurzhikov.trackensuretest.model.entities.Statistics;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.RoomDataProvider;
 
 import org.jetbrains.annotations.NotNull;
@@ -44,5 +45,11 @@ public class MainRepository implements MainRepositoryContract {
     @Override
     public void updateRefuelingNote(@NotNull Refueling station) {
         roomDataProvider.updateRefuelingNote(station);
+    }
+
+    @NotNull
+    @Override
+    public List<Statistics> highlightStatistics() {
+        return null;
     }
 }
