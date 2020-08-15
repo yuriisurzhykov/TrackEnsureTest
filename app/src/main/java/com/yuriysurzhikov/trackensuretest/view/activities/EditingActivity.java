@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.yuriysurzhikov.trackensuretest.R;
+import com.yuriysurzhikov.trackensuretest.model.entities.Place;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 import com.yuriysurzhikov.trackensuretest.presenter.EditingActivityPresenter;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.EditingActivityContract;
@@ -31,6 +32,7 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
 
     private EditingActivityContract.Presenter presenter;
     private Refueling refueling;
+    private Place place;
     private GoogleMap googleMap;
     private Button openDialogButton;
     private SupportMapFragment mapFragment;
@@ -49,8 +51,10 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
         mapFragment.getMapAsync(this);
         presenter = new EditingActivityPresenter(this, this);
         if (bundle != null) {
-            refueling = new Gson().fromJson(bundle.getString(ARG_TAB), Refueling.class);
-            presenter.setModel(refueling);
+            place = new Gson().fromJson(bundle.getString(ARG_TAB + "place"), Place.class);
+            refueling = new Gson().fromJson(bundle.getString(ARG_TAB + "refueling"), Refueling.class);
+            presenter.setModelRefueling(refueling);
+            presenter.setModelPlace(place);
         }
         openDialogButton = findViewById(R.id.open_bottom_sheet);
         openDialogButton.setVisibility(View.VISIBLE);
@@ -68,10 +72,10 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
     @Override
     public void openBottomSheet(View view) {
         if(dialog == null) {
-            dialog = new EditingBottomSheet(this, presenter.getModel());
+            dialog = new EditingBottomSheet(this, presenter.getModelRefueling());
             dialog.setPresenter(presenter);
             Bundle bundle = new Bundle();
-            bundle.putString("model", new Gson().toJson(presenter.getModel()));
+            bundle.putString("model", new Gson().toJson(presenter.getModelRefueling()));
             dialog.setArguments(bundle);
         }
         dialog.show(getSupportFragmentManager(), SHEET_TAG);
@@ -85,11 +89,11 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
     @Override
     public void createMarker(@NotNull LatLng latLng) {
         googleMap.clear();
-        Log.d(TAG, "createMarker: " + presenter.getModel().getLocation().getPlaceName());
+        Log.d(TAG, "createMarker: " + presenter.getModelPlace().getAddress());
         MarkerOptions marker = new MarkerOptions()
                 .position(latLng)
                 .draggable(true)
-                .title(presenter.getModel().getLocation().getPlaceName());
+                .title(presenter.getModelPlace().getAddress());
         googleMap.addMarker(marker);
     }
 

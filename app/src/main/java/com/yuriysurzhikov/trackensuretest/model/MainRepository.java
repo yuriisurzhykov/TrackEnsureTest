@@ -3,6 +3,7 @@ package com.yuriysurzhikov.trackensuretest.model;
 import androidx.lifecycle.LiveData;
 
 import com.yuriysurzhikov.trackensuretest.config.App;
+import com.yuriysurzhikov.trackensuretest.model.entities.Place;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 import com.yuriysurzhikov.trackensuretest.model.entities.Statistics;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.RoomDataProvider;
@@ -28,18 +29,22 @@ public class MainRepository implements MainRepositoryContract {
 
     @NotNull
     @Override
-    public LiveData<List<Refueling>> getAllRefuelings() {
-        return roomDataProvider.getAllRefuelings();
+    public LiveData<List<Refueling>> getAllRefuelingRecords() {
+        return roomDataProvider.getAllRefuelingRecords();
+    }
+
+    public Place getPlaceById(Long id) {
+        return roomDataProvider.getPlaceById(id);
     }
 
     @Override
-    public void addRefuelingNote(@NotNull Refueling station) {
-        roomDataProvider.addRefuelingNote(station);
+    public void addRefuelingNote(@NotNull Place place, @NotNull Refueling refueling) {
+        roomDataProvider.addRefuelingNote(place, refueling);
     }
 
     @Override
-    public void deleteRefuelingNote(@NotNull Refueling station) {
-        roomDataProvider.deleteRefuelingNote(station);
+    public void deleteRefuelingNote(@NotNull Refueling refueling) {
+        roomDataProvider.deleteRefuelingNote(refueling);
     }
 
     @Override

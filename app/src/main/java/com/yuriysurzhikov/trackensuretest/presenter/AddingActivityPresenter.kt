@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yuriysurzhikov.trackensuretest.model.MainRepository
 import com.yuriysurzhikov.trackensuretest.model.entities.Location
+import com.yuriysurzhikov.trackensuretest.model.entities.Place
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling
 import com.yuriysurzhikov.trackensuretest.model.gecoding.ReverseGeocoding
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.AddingActivityContract
@@ -16,19 +17,19 @@ import com.yuriysurzhikov.trackensuretest.utils.Observer
 class AddingActivityPresenter(val view: AddingActivityContract.View, val context: Context) : AddingActivityContract.Presenter, Observer {
 
     val BOTTOM_SHEET_TAG = "bottom_sheet_dialog"
-    private var model: Refueling = Refueling()
-    var location: Location = Location()
+    private var modelRefuel: Refueling = Refueling()
+    private var modelPlace: Place = Place()
     val TAG = "AddingActivityPresen"
 
 
     override fun checkFields(): Boolean {
-        return model.cost != 0F && model.fuelAmount != 0F && model.fuelType != "" && model.provider != ""
+        return modelRefuel.cost != 0F && modelRefuel.fuelAmount != 0 && modelRefuel.fuelType != "" && modelRefuel.providerName != ""
     }
 
     override fun saveRefuelingNote() {
         if(checkFields()) {
-            Log.d(TAG, "saveRefuelingNote: " + model.location.placeName)
-            MainRepository.getInstance().addRefuelingNote(model)
+            Log.d(TAG, "saveRefuelingNote: " + modelRefuel.providerName)
+            MainRepository.getInstance().addRefuelingNote(modelPlace, modelRefuel)
             view.showSuccess("Data successfully saved!")
             view.closeActivity()
         } else {
@@ -37,36 +38,44 @@ class AddingActivityPresenter(val view: AddingActivityContract.View, val context
     }
 
     override fun changeProvider(name: String) {
-        model.provider = name
+        modelRefuel.providerName = name
+        modelPlace.provider = name
     }
 
     override fun changeFuelType(type: String) {
-        model.fuelType = type
+        modelRefuel.fuelType = type
     }
 
-    override fun changeAmount(amount: Float) {
-        model.fuelAmount = amount
+    override fun changeAmount(amount: Int) {
+        modelRefuel.fuelAmount = amount
     }
 
     override fun changeCost(cost: Float) {
-        model.cost = cost
+        modelRefuel.cost = cost
     }
 
     override fun setOpenSheetButton(activity: BottomSheetDialogFragment) {
 
     }
 
-    override fun getModel(): Refueling {
-        return model
+    override fun getModelRefueling(): Refueling {
+        return modelRefuel
     }
 
-    override fun setModel(refueling: Refueling) {
-        model = refueling
+    override fun setModelRefueling(refueling: Refueling) {
+        modelRefuel = refueling
+    }
+
+    override fun getModelPlace(): Place {
+        return modelPlace
+    }
+
+    override fun setModelPlace(place: Place) {
+        modelPlace = place
     }
 
     override fun setLocation(latlng: LatLng) {
-        model.location.lng = latlng.longitude
-        model.location.lat = latlng.latitude
+        modelPlace.location = latlng
         ReverseGeocoding(context, this, latlng)
     }
 
@@ -75,8 +84,7 @@ class AddingActivityPresenter(val view: AddingActivityContract.View, val context
     }
 
     override fun onMarkerDragEnd(p0: Marker) {
-        model.location.lng = p0.position.longitude
-        model.location.lat = p0.position.latitude
+        modelPlace.location = p0.position
         ReverseGeocoding(context, this, p0.position)
     }
 
@@ -89,7 +97,7 @@ class AddingActivityPresenter(val view: AddingActivityContract.View, val context
     }
 
     override fun update(placeName: String) {
-        model.location.placeName = placeName
-        view.createMarker(LatLng(model.location.lat, model.location.lng))
+        modelPlace.address = placeName
+        view.createMarker(modelPlace.location)
     }
 }

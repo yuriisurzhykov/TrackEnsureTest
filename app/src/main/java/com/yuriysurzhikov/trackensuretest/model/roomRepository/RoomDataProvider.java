@@ -7,12 +7,14 @@ import androidx.lifecycle.LiveData;
 
 import com.yuriysurzhikov.trackensuretest.config.App;
 import com.yuriysurzhikov.trackensuretest.model.MainRepositoryContract;
-import com.yuriysurzhikov.trackensuretest.model.entities.Location;
+import com.yuriysurzhikov.trackensuretest.model.entities.Place;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
+import com.yuriysurzhikov.trackensuretest.model.entities.Statistics;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class RoomDataProvider implements MainRepositoryContract {
 
@@ -23,7 +25,7 @@ public class RoomDataProvider implements MainRepositoryContract {
     private RoomDataProvider(Context context) {
         this.context = context;
         database = App.getInstance().getDatabase();
-        gasStations = database.stationsDao().getAll();
+        gasStations = database.refuelingDao().getAll();
     }
 
     public static RoomDataProvider getInstance(Context context) {
@@ -32,7 +34,7 @@ public class RoomDataProvider implements MainRepositoryContract {
 
     @NotNull
     @Override
-    public LiveData<List<Refueling>> getAllRefuelings() {
+    public LiveData<List<Refueling>> getAllRefuelingRecords() {
         /*addRefuelingNote(new Refueling(
                 0,
                 "WOG",
@@ -97,8 +99,16 @@ public class RoomDataProvider implements MainRepositoryContract {
     }
 
     @Override
-    public void addRefuelingNote(@NotNull Refueling station) {
-        new InsertAsyncTask(database).execute(station);
+    public void addRefuelingNote(@NotNull Place place, Refueling station) {
+        new InsertPlaceAsyncTask(database).execute(place);
+        try {
+            station.setPlaceCreatorId(getPlaceId(place.getAddress()));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        new InsertRefuelingAsyncTask(database).execute(station);
     }
 
     @Override
@@ -111,6 +121,53 @@ public class RoomDataProvider implements MainRepositoryContract {
         new UpdateAsyncTask(database).execute(station);
     }
 
+    private Long getPlaceId(String address) throws ExecutionException, InterruptedException {
+        return new GetPlaceIdTask(database).execute(address).get();
+    }
+
+    public Place getPlaceById(Long id) {
+        try {
+            return new GetPlaceTask(database).execute(id).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public List<Statistics> highlightStatistics() {
+        return null;
+    }
+
+    private static class GetPlaceTask extends AsyncTask<Long, Void, Place> {
+        private LocalDatabase db;
+
+        public GetPlaceTask(LocalDatabase database) {
+            db = database;
+        }
+
+        @Override
+        protected Place doInBackground(Long... strings) {
+            return db.placeDao().getPlaceById(strings[0]);
+        }
+    }
+
+    private static class GetPlaceIdTask extends AsyncTask<String, Void, Long> {
+        private LocalDatabase db;
+
+        public GetPlaceIdTask(LocalDatabase database) {
+            db = database;
+        }
+
+        @Override
+        protected Long doInBackground(String... strings) {
+            return db.placeDao().getPlaceByAddress(strings[0]).getPlaceId();
+        }
+    }
+
     private static class DeleteAsyncTask extends AsyncTask<Refueling, Void, Void> {
         private LocalDatabase db;
         DeleteAsyncTask(LocalDatabase db) {
@@ -119,20 +176,35 @@ public class RoomDataProvider implements MainRepositoryContract {
 
         @Override
         protected Void doInBackground(final Refueling... gasStations) {
-            db.stationsDao().deleteStation(gasStations[0]);
+            db.refuelingDao().deleteRefuelingRecord(gasStations[0]);
             return null;
         }
     }
 
-    private static class InsertAsyncTask extends AsyncTask<Refueling, Void, Void> {
+    private static class InsertRefuelingAsyncTask extends AsyncTask<Refueling, Void, Void> {
         private LocalDatabase db;
-        InsertAsyncTask(LocalDatabase db) {
+        public InsertRefuelingAsyncTask(LocalDatabase db) {
             this.db = db;
         }
 
         @Override
-        protected Void doInBackground(final Refueling... gasStations) {
-            db.stationsDao().insertStation(gasStations[0]);
+        protected Void doInBackground(Refueling... refuelings) {
+            db.refuelingDao().insertRefuelingRecord(refuelings[0]);
+            return null;
+        }
+    }
+
+    private static class InsertPlaceAsyncTask extends AsyncTask<Place, Void, Void> {
+        private LocalDatabase db;
+        private Refueling refueling;
+        InsertPlaceAsyncTask(LocalDatabase db) {
+            this.db = db;
+            this.refueling = refueling;
+        }
+
+        @Override
+        protected Void doInBackground(final Place... places) {
+            db.placeDao().addPlace(places[0]);
             return null;
         }
     }
@@ -145,7 +217,7 @@ public class RoomDataProvider implements MainRepositoryContract {
 
         @Override
         protected Void doInBackground(final Refueling... gasStations) {
-            db.stationsDao().updateStation(gasStations[0]);
+            db.refuelingDao().updateRefuelingRecord(gasStations[0]);
             return null;
         }
     }

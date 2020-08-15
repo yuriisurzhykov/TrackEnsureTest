@@ -1,11 +1,9 @@
 package com.yuriysurzhikov.trackensuretest.view.fragments;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.ArraySet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +24,6 @@ import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.RoomDataProvider;
 import com.yuriysurzhikov.trackensuretest.presenter.StationsFragmentPresenter;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.StationsFragmentContract;
-import com.yuriysurzhikov.trackensuretest.view.activities.AddingActivity;
 import com.yuriysurzhikov.trackensuretest.view.activities.EditingActivity;
 import com.yuriysurzhikov.trackensuretest.view.adapters.RefuelingRecyclerAdapter;
 import com.yuriysurzhikov.trackensuretest.view.dialogs.ChoiceDialog;
@@ -74,7 +71,7 @@ public class StationsFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.stations_layout_fragment, container, false);
-        repository.getAllRefuelings().observe(getViewLifecycleOwner(), refuelings -> {
+        repository.getAllRefuelingRecords().observe(getViewLifecycleOwner(), refuelings -> {
             gasStations.clear();
             gasStations.addAll(refuelings);
             Log.d(TAG, "onCreateView: " + refuelings.size());
@@ -109,10 +106,18 @@ public class StationsFragment
 
             @Override
             public void onEditClickListener(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString(ARG_TAB, new Gson().toJson(gasStations.get(position)));
+                Bundle bundleRefueling = new Bundle();
+                bundleRefueling.putString(ARG_TAB + "refueling", new Gson().toJson(gasStations.get(position)));
+                Bundle bundlePlace = new Bundle();
+                bundlePlace.putString(
+                        ARG_TAB + "place",
+                        new Gson().toJson(
+                                MainRepository.getInstance().getPlaceById(gasStations.get(position).getPlaceCreatorId())
+                        )
+                );
                 Intent intent = new Intent(context, EditingActivity.class);
-                intent.putExtras(bundle);
+                intent.putExtras(bundleRefueling);
+                intent.putExtras(bundlePlace);
                 startActivity(intent);
             }
         });

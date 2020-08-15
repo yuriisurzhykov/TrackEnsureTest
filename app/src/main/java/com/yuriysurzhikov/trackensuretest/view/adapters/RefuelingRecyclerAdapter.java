@@ -75,7 +75,7 @@ public class RefuelingRecyclerAdapter extends RecyclerView.Adapter<RefuelingRecy
         }
 
         public void bindData(Refueling refueling) {
-            titleTextView.setText(refueling.getProvider());
+            titleTextView.setText(refueling.getProviderName());
             fuelTypeTextView.setText(refueling.getFuelType());
             fuelAmountTextView.setText(String.valueOf(refueling.getFuelAmount()));
             costTextView.setText(String.valueOf(refueling.getCost()));

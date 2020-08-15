@@ -50,15 +50,8 @@ public class AddingBottomSheetDialog extends BottomSheetDialogFragment implement
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         refueling = new Refueling();
-        if(savedInstanceState != null)
-            restoreInstanceState(savedInstanceState);
         Log.d(TAG, "onCreateDialog: " + refueling.toString());
         return super.onCreateDialog(savedInstanceState);
-    }
-
-    private void restoreInstanceState(Bundle state) {
-        presenter.setModel(new Gson().fromJson(state.getString("model"), Refueling.class));
-        fuelAmount.setText(String.valueOf(presenter.getModel().getFuelAmount()));
     }
 
     @Override
@@ -87,7 +80,7 @@ public class AddingBottomSheetDialog extends BottomSheetDialogFragment implement
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() != 0)
-                    presenter.changeAmount(Float.parseFloat(s.toString()));
+                    presenter.changeAmount(Integer.parseInt(s.toString()));
                 else
                     presenter.changeAmount(0);
             }
@@ -140,11 +133,5 @@ public class AddingBottomSheetDialog extends BottomSheetDialogFragment implement
     @Override
     public void stopLoading() {
 
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("model", new Gson().toJson(presenter.getModel()));
     }
 }

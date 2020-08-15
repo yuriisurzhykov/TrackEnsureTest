@@ -1,16 +1,11 @@
 package com.yuriysurzhikov.trackensuretest.presenter.contracts
 
-import android.app.Activity
-import android.view.View
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.yuriysurzhikov.trackensuretest.model.entities.Location
+import com.yuriysurzhikov.trackensuretest.model.entities.Place
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling
-import com.yuriysurzhikov.trackensuretest.model.entities.ReverseGeoCodingResult
-import retrofit2.Call
-import rx.Observable
 
 interface AddingActivityContract {
 
@@ -36,11 +31,13 @@ interface AddingActivityContract {
         fun saveRefuelingNote()
         fun changeProvider(name: String)
         fun changeFuelType(type: String)
-        fun changeAmount(amount: Float)
+        fun changeAmount(amount: Int)
         fun changeCost(cost: Float)
         fun setOpenSheetButton(activity: BottomSheetDialogFragment)
-        fun getModel(): Refueling
-        fun setModel(refueling: Refueling)
+        fun getModelRefueling(): Refueling
+        fun setModelRefueling(refueling: Refueling)
+        fun getModelPlace(): Place
+        fun setModelPlace(place: Place)
         fun setLocation(latlng: LatLng)
     }
 }

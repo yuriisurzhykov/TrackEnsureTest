@@ -4,6 +4,7 @@ import android.view.View
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.yuriysurzhikov.trackensuretest.model.entities.Place
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling
 
 interface EditingActivityContract {
@@ -21,13 +22,15 @@ interface EditingActivityContract {
 
     interface Presenter: OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMapLongClickListener {
         fun loadLocation(location: LatLng)
-        fun setModel(refueling: Refueling)
         fun updateRefueling()
         fun changeProvider(name: String)
         fun changeFuelType(type: String)
-        fun changeAmount(amount: Float)
+        fun changeAmount(amount: Int)
         fun changeCost(cost: Float)
-        fun getModel(): Refueling
         fun checkFields(): Boolean
+        fun getModelRefueling(): Refueling
+        fun setModelRefueling(refueling: Refueling)
+        fun getModelPlace(): Place
+        fun setModelPlace(place: Place)
     }
 }

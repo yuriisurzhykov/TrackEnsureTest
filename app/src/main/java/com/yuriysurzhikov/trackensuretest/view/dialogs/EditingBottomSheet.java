@@ -79,7 +79,7 @@ public class EditingBottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() != 0)
-                    presenter.changeAmount(Float.parseFloat(s.toString()));
+                    presenter.changeAmount(Integer.parseInt(s.toString()));
                 else
                     presenter.changeAmount(0);
             }
@@ -120,12 +120,12 @@ public class EditingBottomSheet extends BottomSheetDialogFragment {
         fuelTypes.setValue(Arrays.asList(fuelTypesList).indexOf(refueling.getFuelType()));
         fuelAmount.setText(String.valueOf(refueling.getFuelAmount()));
         costText.setText(String.valueOf(refueling.getCost()));
-        providerName.setText(refueling.getProvider());
+        providerName.setText(refueling.getProviderName());
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("model", new Gson().toJson(presenter.getModel()));
+        outState.putString("model", new Gson().toJson(presenter.getModelRefueling()));
     }
 }

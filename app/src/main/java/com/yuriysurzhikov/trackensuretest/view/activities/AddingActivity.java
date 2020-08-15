@@ -118,7 +118,7 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
         googleMap.addMarker(
                 new MarkerOptions()
                         .position(latlng)
-                        .title(presenter.getModel().getLocation().getPlaceName())
+                        .title(presenter.getModelPlace().getAddress())
                         .draggable(true)
         );
     }
