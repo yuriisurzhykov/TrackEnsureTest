@@ -7,8 +7,7 @@ import com.google.auto.value.AutoValue
 import com.google.gson.annotations.SerializedName
 import com.yuriysurzhikov.trackensuretest.utils.LocationConverter
 
-@Entity(indices = [Index(value = ["provider"], unique = true),
-                   Index(value = ["address"], unique = true)],
+@Entity(indices = [Index(value = ["address"], unique = true)],
         primaryKeys = ["address"])
 @TypeConverters(LocationConverter::class)
 data class Place(
