@@ -7,8 +7,8 @@ data class PlaceWithRefueling(
         @Embedded
         var place: Place,
         @Relation(
-                parentColumn = "placeId",
-                entityColumn = "placeCreatorId",
+                parentColumn = "address",
+                entityColumn = "addressCreator",
                 entity = Refueling::class
         )
         var refuelings: List<Refueling>

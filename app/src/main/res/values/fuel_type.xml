@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="fuel_types">
-        <item>Дизель</item>
+        <item>Diesel</item>
         <item>А-95</item>
-        <item>А-95 Евро</item>
+        <item>А-95 Euro</item>
         <item>А-92</item>
-        <item>А-92 Евро</item>
+        <item>А-92 Euro</item>
         <item>А-98</item>
-        <item>Газ</item>
+        <item>Gas</item>
+        <item>Gas Euro</item>
     </string-array>
 </resources>

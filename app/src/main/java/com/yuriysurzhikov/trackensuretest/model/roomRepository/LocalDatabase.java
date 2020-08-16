@@ -8,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.yuriysurzhikov.trackensuretest.model.entities.Place;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
+import com.yuriysurzhikov.trackensuretest.model.entities.StatisticsElement;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.daos.PlaceDao;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.daos.RefuelingDao;
 

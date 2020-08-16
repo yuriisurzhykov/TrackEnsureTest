@@ -2,6 +2,7 @@ package com.yuriysurzhikov.trackensuretest.view.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuriysurzhikov.trackensuretest.R;
+import com.yuriysurzhikov.trackensuretest.model.MainRepository;
+import com.yuriysurzhikov.trackensuretest.view.adapters.StatisticsRecyclerAdapter;
 
 public class StatisticsFragment extends ProjectFragment {
+
+    private static final String TAG = "StatisticsFragment";
 
     private static final String ARG_TAB = "ARG_TAB";
     private Context context;
     private View view;
+    private RecyclerView recyclerView;
+    private StatisticsRecyclerAdapter recyclerAdapter;
 
     private StatisticsFragment(Context context) {
         this.context = context;
@@ -42,7 +50,14 @@ public class StatisticsFragment extends ProjectFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView view1 = view.findViewById(R.id.text);
-        if(savedInstanceState != null)
+        if (savedInstanceState != null)
             view1.setText(savedInstanceState.getCharSequence(ARG_TAB));
+        MainRepository.getInstance().highlightStatistics().observe(getViewLifecycleOwner(), statisticsElements -> {
+            Log.d(TAG, "onViewCreated: statisticsElements - " + statisticsElements.size());
+            recyclerAdapter = new StatisticsRecyclerAdapter(context, statisticsElements);
+            recyclerView = view.findViewById(R.id.statistics_recycler);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(recyclerAdapter);
+        });
     }
 }

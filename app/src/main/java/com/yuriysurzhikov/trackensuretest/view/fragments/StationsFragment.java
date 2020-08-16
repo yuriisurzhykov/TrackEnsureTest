@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.yuriysurzhikov.trackensuretest.R;
 import com.yuriysurzhikov.trackensuretest.model.MainRepository;
 import com.yuriysurzhikov.trackensuretest.model.MainRepositoryContract;
+import com.yuriysurzhikov.trackensuretest.model.entities.Place;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.RoomDataProvider;
 import com.yuriysurzhikov.trackensuretest.presenter.StationsFragmentPresenter;
@@ -82,7 +83,6 @@ public class StationsFragment
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(recyclerAdapter);
         });
-        Log.d(TAG, "onCreateView: " + gasStations);
         return view;
     }
 
@@ -98,6 +98,7 @@ public class StationsFragment
 
     @Override
     public void onLongClickListener(int position) {
+        Log.d(TAG, "onDeleteClickListener: " + gasStations.get(position));
         ChoiceDialog dialog = new ChoiceDialog(getContext(), new ChoiceDialog.DialogListener() {
             @Override
             public void onDeleteClickListener(View view) {
@@ -109,12 +110,9 @@ public class StationsFragment
                 Bundle bundleRefueling = new Bundle();
                 bundleRefueling.putString(ARG_TAB + "refueling", new Gson().toJson(gasStations.get(position)));
                 Bundle bundlePlace = new Bundle();
-                bundlePlace.putString(
-                        ARG_TAB + "place",
-                        new Gson().toJson(
-                                MainRepository.getInstance().getPlaceById(gasStations.get(position).getPlaceCreatorId())
-                        )
-                );
+                Place place =  MainRepository.getInstance().getPlaceByAddress(gasStations.get(position).getAddressCreator());
+                Log.d(TAG, "onEditClickListener: place " + place);
+                bundlePlace.putString( ARG_TAB + "place", new Gson().toJson(place));
                 Intent intent = new Intent(context, EditingActivity.class);
                 intent.putExtras(bundleRefueling);
                 intent.putExtras(bundlePlace);

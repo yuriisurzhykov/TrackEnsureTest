@@ -1,9 +1,8 @@
 package com.yuriysurzhikov.trackensuretest.model.entities
 
-import androidx.room.Entity
+import androidx.lifecycle.LiveData
 
-@Entity(tableName = "place")
-data class Statistics (
+data class StatisticsStatic(
         var provider: String,
         var address: String,
         var elements: List<StatisticsElement>

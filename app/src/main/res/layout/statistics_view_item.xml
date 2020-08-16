@@ -7,8 +7,6 @@
     android:orientation="vertical"
     android:background="@drawable/rectangle_with_corners">
 
-<!--    Custom view-->
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -36,7 +34,6 @@
         android:background="@drawable/edit_dialog_button">
 
         <TextView
-            android:id="@+id/text_fueltype"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +51,6 @@
 
         <TextView
             android:layout_weight="1"
-            android:id="@+id/text_totalcost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -76,8 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_gravity="center">
+            android:gravity="center">
 
             <TextView
                 android:text="Disel"

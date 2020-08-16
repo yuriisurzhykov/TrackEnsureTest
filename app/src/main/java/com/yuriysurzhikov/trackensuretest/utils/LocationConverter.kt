@@ -4,8 +4,6 @@ import android.text.TextUtils
 import androidx.room.TypeConverter
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
-import com.yuriysurzhikov.trackensuretest.model.entities.Location
-import com.yuriysurzhikov.trackensuretest.model.entities.Refueling
 
 class LocationConverter {
     @TypeConverter

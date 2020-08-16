@@ -7,7 +7,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yuriysurzhikov.trackensuretest.model.MainRepository
-import com.yuriysurzhikov.trackensuretest.model.entities.Location
 import com.yuriysurzhikov.trackensuretest.model.entities.Place
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling
 import com.yuriysurzhikov.trackensuretest.model.gecoding.ReverseGeocoding
@@ -23,14 +22,14 @@ class AddingActivityPresenter(val view: AddingActivityContract.View, val context
 
 
     override fun checkFields(): Boolean {
-        return modelRefuel.cost != 0F && modelRefuel.fuelAmount != 0 && modelRefuel.fuelType != "" && modelRefuel.providerName != ""
+        return modelRefuel.cost != 0F && modelRefuel.fuelAmount != 0 && modelRefuel.fuelType != "" && modelRefuel.providerCreator != ""
     }
 
     override fun saveRefuelingNote() {
         if(checkFields()) {
-            Log.d(TAG, "saveRefuelingNote: " + modelRefuel.providerName)
+            Log.d(TAG, "saveRefuelingNote: modelRefuel.provider - " + modelRefuel.providerCreator)
             MainRepository.getInstance().addRefuelingNote(modelPlace, modelRefuel)
-            view.showSuccess("Data successfully saved!")
+            view.showSuccess("Data has been successfully saved!")
             view.closeActivity()
         } else {
             view.showError("Not all fields are filled!")
@@ -38,7 +37,7 @@ class AddingActivityPresenter(val view: AddingActivityContract.View, val context
     }
 
     override fun changeProvider(name: String) {
-        modelRefuel.providerName = name
+        modelRefuel.providerCreator = name
         modelPlace.provider = name
     }
 
@@ -98,6 +97,7 @@ class AddingActivityPresenter(val view: AddingActivityContract.View, val context
 
     override fun update(placeName: String) {
         modelPlace.address = placeName
+        modelRefuel.addressCreator = placeName
         view.createMarker(modelPlace.location)
     }
 }

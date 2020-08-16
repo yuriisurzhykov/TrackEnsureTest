@@ -120,7 +120,7 @@ public class EditingBottomSheet extends BottomSheetDialogFragment {
         fuelTypes.setValue(Arrays.asList(fuelTypesList).indexOf(refueling.getFuelType()));
         fuelAmount.setText(String.valueOf(refueling.getFuelAmount()));
         costText.setText(String.valueOf(refueling.getCost()));
-        providerName.setText(refueling.getProviderName());
+        providerName.setText(refueling.getProviderCreator());
     }
 
     @Override

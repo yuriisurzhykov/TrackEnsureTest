@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import com.yuriysurzhikov.trackensuretest.config.App;
 import com.yuriysurzhikov.trackensuretest.model.entities.Place;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
-import com.yuriysurzhikov.trackensuretest.model.entities.Statistics;
+import com.yuriysurzhikov.trackensuretest.model.entities.StatisticsLive;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.RoomDataProvider;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,8 +33,8 @@ public class MainRepository implements MainRepositoryContract {
         return roomDataProvider.getAllRefuelingRecords();
     }
 
-    public Place getPlaceById(Long id) {
-        return roomDataProvider.getPlaceById(id);
+    public Place getPlaceByAddress(String id) {
+        return roomDataProvider.getPlaceByAddress(id);
     }
 
     @Override
@@ -48,13 +48,17 @@ public class MainRepository implements MainRepositoryContract {
     }
 
     @Override
-    public void updateRefuelingNote(@NotNull Refueling station) {
-        roomDataProvider.updateRefuelingNote(station);
+    public void updateRefuelingNote(@NotNull Refueling station, Place place) {
+        roomDataProvider.updateRefuelingNote(station, place);
+    }
+
+    public LiveData<List<Place>> getAllPlaces() {
+        return roomDataProvider.getAllPlaces();
     }
 
     @NotNull
     @Override
-    public List<Statistics> highlightStatistics() {
-        return null;
+    public LiveData<List<StatisticsLive>> highlightStatistics() {
+        return roomDataProvider.highlightStatistics();
     }
 }

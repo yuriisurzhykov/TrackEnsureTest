@@ -15,7 +15,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.yuriysurzhikov.trackensuretest.R;
-import com.yuriysurzhikov.trackensuretest.model.entities.Location;
 import com.yuriysurzhikov.trackensuretest.model.entities.Refueling;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.AddingActivityContract;
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.AddingBottomSheetContract;

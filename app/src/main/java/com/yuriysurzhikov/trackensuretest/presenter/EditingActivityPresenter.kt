@@ -25,9 +25,8 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
 
     override fun updateRefueling() {
         if(checkFields()) {
-            Log.d(TAG, "saveRefuelingNote: " + modelRefuel.providerName)
-            MainRepository.getInstance().updateRefuelingNote(modelRefuel)
-            view.showMessage("Data has been successfully changed")
+            MainRepository.getInstance().updateRefuelingNote(modelRefuel, modelPlace)
+            view.showMessage("Data has been successfully saved!")
             view.closeActivity()
         } else {
             view.showMessage("Not all fields are filled!")
@@ -35,7 +34,7 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
     }
 
     override fun changeProvider(name: String) {
-        modelRefuel.providerName = name
+        modelRefuel.providerCreator = name
         modelPlace.provider = name
     }
 
@@ -52,7 +51,7 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
     }
 
     override fun checkFields(): Boolean {
-        return modelRefuel.providerName != "" &&
+        return modelRefuel.providerCreator != "" &&
                 modelRefuel.fuelType != "" &&
                 modelRefuel.cost != 0F &&
                 modelRefuel.fuelAmount != 0
@@ -98,8 +97,8 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
     }
 
     override fun update(placeName: String) {
-        Log.d(TAG, "update: location name updated")
         modelPlace.address = placeName
+        modelRefuel.addressCreator = placeName
         view.createMarker(modelPlace.location)
     }
 }

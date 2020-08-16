@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StatisticsView">
+        <attr name="backgroundView" format="reference"/>
+        <attr name="backgroundHeader" format="reference"/>
+        <attr name="backgroundTable" format="reference"/>
+    </declare-styleable>
+</resources>

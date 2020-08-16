@@ -45,12 +45,10 @@ public class RefuelingRecyclerAdapter extends RecyclerView.Adapter<RefuelingRecy
 
     @Override
     public int getItemCount() {
-        Log.d(TAG, "getItemCount: " + list.size());
         return list.size();
     }
 
     public void setRefuelingList(List<Refueling> refuelingList) {
-        Log.d(TAG, "setRefuelingList: " + refuelingList.size());
         list = refuelingList;
     }
 
@@ -75,7 +73,7 @@ public class RefuelingRecyclerAdapter extends RecyclerView.Adapter<RefuelingRecy
         }
 
         public void bindData(Refueling refueling) {
-            titleTextView.setText(refueling.getProviderName());
+            titleTextView.setText(refueling.getProviderCreator());
             fuelTypeTextView.setText(refueling.getFuelType());
             fuelAmountTextView.setText(String.valueOf(refueling.getFuelAmount()));
             costTextView.setText(String.valueOf(refueling.getCost()));
