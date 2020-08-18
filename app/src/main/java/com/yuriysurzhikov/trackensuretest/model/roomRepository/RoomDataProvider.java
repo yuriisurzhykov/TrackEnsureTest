@@ -62,16 +62,18 @@ public class RoomDataProvider implements MainRepositoryContract {
                 Log.d(TAG, "deleteRefuelingNote: place have children");
                 new DeletePlaceTask(database).execute(station.getAddressCreator());
             }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void updateRefuelingNote(@NotNull Refueling station, Place place) {
-        new UpdateAsyncTask(database).execute(station);
+    public void updateRefuelingNote(@NotNull Refueling stationOld, Refueling stationNew, Place place) {
+        deleteRefuelingNote(stationOld);
+        Log.d(TAG, "updateRefuelingNote: " + stationOld.getAddressCreator());
+        if(getPlaceByAddress(stationNew.getAddressCreator()) == null)
+            new InsertPlaceAsyncTask(database).execute(place);
+        new UpdateAsyncTask(database).execute(stationNew);
     }
 
     public LiveData<List<Place>> getAllPlaces() {
@@ -81,14 +83,17 @@ public class RoomDataProvider implements MainRepositoryContract {
     public Place getPlaceByAddress(String address) {
         try {
             return new GetPlaceByAddressTask(database).execute(address).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    public void addPlace(Place place) {
+        new InsertPlaceAsyncTask(database).execute(place);
+    }
+
+    @NotNull
     @Override
     public LiveData<List<StatisticsLive>> highlightStatistics() {
         return Transformations.map(places, input -> {
@@ -176,7 +181,7 @@ public class RoomDataProvider implements MainRepositoryContract {
 
         @Override
         protected Void doInBackground(final Refueling... gasStations) {
-            db.refuelingDao().updateRefuelingRecord(gasStations[0]);
+            db.refuelingDao().insertRefuelingRecord(gasStations[0]);
             return null;
         }
     }

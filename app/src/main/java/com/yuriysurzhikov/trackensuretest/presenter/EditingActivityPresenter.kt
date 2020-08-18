@@ -14,18 +14,20 @@ import com.yuriysurzhikov.trackensuretest.utils.Observer
 
 class EditingActivityPresenter(val view: EditingActivityContract.View, val context: Context) : EditingActivityContract.Presenter, Observer {
 
-    private var modelRefuel = Refueling()
+    private var modelRefuelOld = Refueling()
+    private var modelRefuelNew = Refueling()
     private var modelPlace = Place()
     private val TAG = "EditingActivityPresent"
 
     override fun loadLocation(location: LatLng) {
-        modelPlace.location = location
+        modelPlace.location = com.google.maps.model.LatLng(location.latitude, location.longitude)
         ReverseGeocoding(context, this, location)
     }
 
     override fun updateRefueling() {
         if(checkFields()) {
-            MainRepository.getInstance().updateRefuelingNote(modelRefuel, modelPlace)
+            Log.d(TAG, "updateRefueling: " + modelRefuelOld.addressCreator)
+            MainRepository.getInstance().updateRefuelingNote(modelRefuelOld, modelRefuelNew, modelPlace)
             view.showMessage("Data has been successfully saved!")
             view.closeActivity()
         } else {
@@ -34,35 +36,36 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
     }
 
     override fun changeProvider(name: String) {
-        modelRefuel.providerCreator = name
+        modelRefuelNew.providerCreator = name
         modelPlace.provider = name
     }
 
     override fun changeFuelType(type: String) {
-        modelRefuel.fuelType = type
+        modelRefuelNew.fuelType = type
     }
 
     override fun changeAmount(amount: Int) {
-        modelRefuel.fuelAmount = amount
+        modelRefuelNew.fuelAmount = amount
     }
 
     override fun changeCost(cost: Float) {
-        modelRefuel.cost = cost
+        modelRefuelNew.cost = cost
     }
 
     override fun checkFields(): Boolean {
-        return modelRefuel.providerCreator != "" &&
-                modelRefuel.fuelType != "" &&
-                modelRefuel.cost != 0F &&
-                modelRefuel.fuelAmount != 0
+        return modelRefuelNew.providerCreator != "" &&
+                modelRefuelNew.fuelType != "" &&
+                modelRefuelNew.cost != 0F &&
+                modelRefuelNew.fuelAmount != 0
     }
 
     override fun getModelRefueling(): Refueling {
-        return modelRefuel
+        return modelRefuelNew
     }
 
     override fun setModelRefueling(refueling: Refueling) {
-        modelRefuel = refueling
+        modelRefuelOld = Refueling(refueling.refuelingId, refueling.fuelType, refueling.fuelAmount, refueling.cost, refueling.addressCreator, refueling.providerCreator)
+        modelRefuelNew = refueling
     }
 
     override fun getModelPlace(): Place {
@@ -75,11 +78,11 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
 
     override fun onMapReady(p0: GoogleMap?) {
         Log.d(TAG, "onMapReady: here")
-        view.createMarker(modelPlace.location)
+        view.createMarker(LatLng(modelPlace.location.lat, modelPlace.location.lng))
     }
 
     override fun onMarkerDragEnd(p0: Marker) {
-        modelPlace.location = p0.position
+        modelPlace.location = com.google.maps.model.LatLng(p0.position.latitude, p0.position.longitude)
         ReverseGeocoding(context, this, p0.position)
     }
 
@@ -92,13 +95,13 @@ class EditingActivityPresenter(val view: EditingActivityContract.View, val conte
     }
 
     override fun onMapLongClick(p0: LatLng) {
-        modelPlace.location = p0
+        modelPlace.location = com.google.maps.model.LatLng(modelPlace.location.lat, modelPlace.location.lng)
         ReverseGeocoding(context, this, p0)
     }
 
     override fun update(placeName: String) {
         modelPlace.address = placeName
-        modelRefuel.addressCreator = placeName
-        view.createMarker(modelPlace.location)
+        modelRefuelNew.addressCreator = placeName
+        view.createMarker(LatLng(modelPlace.location.lat, modelPlace.location.lng))
     }
 }

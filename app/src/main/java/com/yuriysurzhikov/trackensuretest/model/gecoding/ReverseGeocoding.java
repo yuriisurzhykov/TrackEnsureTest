@@ -40,7 +40,7 @@ public class ReverseGeocoding {
         // Finding address using reverse geocoding
         @Override
         protected List<Address> doInBackground(LatLng... params) {
-            Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+            Geocoder geocoder = new Geocoder(context, Locale.ENGLISH);
             try {
                 addresses = geocoder.getFromLocation(params[0].latitude, params[0].longitude, result);
             } catch (IOException e) {
@@ -69,7 +69,6 @@ public class ReverseGeocoding {
                     address.getLocality() + "," +
                     address.getThoroughfare() + "," +
                     address.getFeatureName() + "," +
-                    address.getCountryName() + "," +
                     address.getCountryName();
             // Setting the title for the marker.
             // This will be displayed on taping the marker

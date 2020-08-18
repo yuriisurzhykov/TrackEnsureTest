@@ -12,7 +12,7 @@ import com.yuriysurzhikov.trackensuretest.model.entities.StatisticsElement;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.daos.PlaceDao;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.daos.RefuelingDao;
 
-@Database(entities = {Place.class, Refueling.class}, version = 2)
+@Database(entities = {Place.class, Refueling.class}, version = 3)
 public abstract class LocalDatabase extends RoomDatabase {
     public abstract RefuelingDao refuelingDao();
     public abstract PlaceDao placeDao();

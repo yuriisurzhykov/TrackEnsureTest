@@ -9,7 +9,7 @@ import com.yuriysurzhikov.trackensuretest.model.entities.StatisticsElement
 interface RefuelingDao {
     @Query("SELECT * FROM Refueling")
     fun getAll(): LiveData<List<Refueling>>
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRefuelingRecord(station: Refueling)
     @Delete
     fun deleteRefuelingRecord(station: Refueling)
