@@ -23,112 +23,16 @@
         style="@style/MainText"
         android:layout_margin="5sp"/>
 
-    <LinearLayout
-        android:id="@+id/table_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        android:textAlignment="center"
-        android:background="@drawable/edit_dialog_button">
+    <include layout="@layout/custom_header_layout"/>
 
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@color/secondaryDarkColor"
-            android:text="Fuel type"/>
-
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@color/secondaryDarkColor"
-            android:text="Total quantity"/>
-
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@color/secondaryDarkColor"
-            android:text="Total cost"/>
-
-    </LinearLayout>
-
-    <LinearLayout
+<!--    <LinearLayout
+        android:id="@+id/statistics_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle_with_corners"
         android:gravity="center"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
-        android:textAlignment="center">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <TextView
-                android:text="Disel"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:text="Disel"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:text="Disel"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/primaryDarkColor"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_gravity="center">
-
-            <TextView
-                android:text="Disel"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:text="Disel"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:text="Disel"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal" />
-        </LinearLayout>
-
-    </LinearLayout>
+        android:textAlignment="center"/>-->
 
 </LinearLayout>
