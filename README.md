@@ -7,4 +7,4 @@
 + Firebase
 + WorkManager - for backgroung CRUD tasks with Firebase
 ### Architecture
-As the architecture pattern was choosen MVP pattern
+The MVP pattern was choosen as the architecture.
