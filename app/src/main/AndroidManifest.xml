@@ -37,7 +37,8 @@
 
         <activity
             android:name=".view.activities.MainActivity"
-            android:label="TrackEnsure">
+            android:label="TrackEnsure"
+            android:configChanges="orientation|screenSize|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -45,10 +46,12 @@
         </activity>
         <activity
             android:name=".view.activities.AddingActivity"
-            android:label="Adding new note" />
-        <activity android:name=".view.activities.EditingActivity" />
-
-        <service android:name=".services.ServiceSender" />
+            android:label="Adding new note"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".view.activities.EditingActivity"
+            android:label="Editing note"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
     </application>
 
 </manifest>
