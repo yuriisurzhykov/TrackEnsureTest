@@ -1,8 +1,8 @@
 package com.yuriysurzhikov.trackensuretest.utils
 
 import android.text.TextUtils
+import com.google.maps.model.LatLng
 import androidx.room.TypeConverter
-import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 
 class LocationConverter {

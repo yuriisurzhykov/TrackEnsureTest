@@ -3,6 +3,7 @@ package com.yuriysurzhikov.trackensuretest.config;
 import android.app.Application;
 import androidx.room.Room;
 import com.yuriysurzhikov.trackensuretest.model.roomRepository.LocalDatabase;
+import com.yuriysurzhikov.trackensuretest.utils.Synchronizer;
 
 public class App extends Application {
 

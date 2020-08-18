@@ -5,12 +5,13 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 @Entity
 data class Refueling (
-        @PrimaryKey(autoGenerate = true)
+        @PrimaryKey
         @SerializedName("refuelingId")
-        var refuelingId: Long,
+        var refuelingId: String = UUID.randomUUID().toString(),
         @SerializedName("fuelType")
         var fuelType: String,
         @SerializedName("fuelAmount")
@@ -23,5 +24,5 @@ data class Refueling (
         @SerializedName("providerCreator")
         var providerCreator: String
 ) {
-    constructor() : this(0, "", 0, 0F, "","")
+    constructor() : this(UUID.randomUUID().toString(), "", 0, 0F, "","")
 }

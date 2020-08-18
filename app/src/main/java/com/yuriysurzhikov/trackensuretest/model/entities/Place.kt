@@ -1,9 +1,8 @@
 package com.yuriysurzhikov.trackensuretest.model.entities
 
-import android.provider.ContactsContract
+
 import androidx.room.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.auto.value.AutoValue
+import com.google.maps.model.LatLng
 import com.google.gson.annotations.SerializedName
 import com.yuriysurzhikov.trackensuretest.utils.LocationConverter
 
@@ -18,7 +17,8 @@ data class Place(
         var address: String,
         @TypeConverters(LocationConverter::class)
         @SerializedName("location")
+        @ColumnInfo(name = "location")
         var location: LatLng
 ) {
-    constructor(): this( "", "", LatLng(0.0, 0.0))
+    constructor(): this( "", "", LatLng())
 }

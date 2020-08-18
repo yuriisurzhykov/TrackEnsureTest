@@ -88,7 +88,6 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
     public void onMapLongClick(com.google.android.gms.maps.model.LatLng latLng) {
 
         presenter.setLocation(latLng);
-        setNextButtonActive();
         googleMap.setOnMarkerDragListener(presenter);
     }
 
@@ -121,5 +120,6 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
                         .title(presenter.getModelPlace().getAddress())
                         .draggable(true)
         );
+        setNextButtonActive();
     }
 }
