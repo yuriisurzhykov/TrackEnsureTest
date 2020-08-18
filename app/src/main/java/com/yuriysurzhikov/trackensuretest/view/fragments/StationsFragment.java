@@ -39,7 +39,7 @@ public class StationsFragment
 
     private static final String TAG = "StationsFragment";
 
-    private static final String ARG_TAB = "ARG_TAB";
+    public static final String ARG_TAB = "ARG_TAB";
     private static final String HINT_TAB = "HINT_TAB";
     private Context context;
     private View view;
@@ -98,25 +98,19 @@ public class StationsFragment
 
     @Override
     public void onLongClickListener(int position) {
-        Log.d(TAG, "onDeleteClickListener: " + gasStations.get(position));
         ChoiceDialog dialog = new ChoiceDialog(getContext(), new ChoiceDialog.DialogListener() {
             @Override
             public void onDeleteClickListener(View view) {
-                MainRepository.getInstance().deleteRefuelingNote(gasStations.get(position));
+                presenter.deleteRefuelingNote(gasStations.get(position));
             }
 
             @Override
             public void onEditClickListener(View view) {
-                Bundle bundleRefueling = new Bundle();
-                bundleRefueling.putString(ARG_TAB + "refueling", new Gson().toJson(gasStations.get(position)));
-                Bundle bundlePlace = new Bundle();
-                Place place =  MainRepository.getInstance().getPlaceByAddress(gasStations.get(position).getAddressCreator());
-                Log.d(TAG, "onEditClickListener: place " + place);
-                bundlePlace.putString( ARG_TAB + "place", new Gson().toJson(place));
-                Intent intent = new Intent(context, EditingActivity.class);
-                intent.putExtras(bundleRefueling);
-                intent.putExtras(bundlePlace);
-                startActivity(intent);
+                presenter.openEditingActivity(
+                        gasStations.get(position),
+                        MainRepository.getInstance().getPlaceByAddress(gasStations.get(position).getAddressCreator()),
+                        context
+                );
             }
         });
         dialog.show(getChildFragmentManager(), HINT_TAB);
