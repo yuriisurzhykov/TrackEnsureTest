@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuriysurzhikov.trackensuretest.R;
 import com.yuriysurzhikov.trackensuretest.model.MainRepository;
+import com.yuriysurzhikov.trackensuretest.presenter.StatisticsFragmentPresenter;
+import com.yuriysurzhikov.trackensuretest.presenter.contracts.StatisticsFragmentContract;
 import com.yuriysurzhikov.trackensuretest.view.adapters.StatisticsRecyclerAdapter;
 
-public class StatisticsFragment extends ProjectFragment {
+public class StatisticsFragment extends ProjectFragment implements StatisticsFragmentContract.View {
 
     private static final String TAG = "StatisticsFragment";
 
@@ -26,9 +28,11 @@ public class StatisticsFragment extends ProjectFragment {
     private View view;
     private RecyclerView recyclerView;
     private StatisticsRecyclerAdapter recyclerAdapter;
+    private StatisticsFragmentContract.Presenter presenter;
 
     private StatisticsFragment(Context context) {
         this.context = context;
+        presenter = new StatisticsFragmentPresenter(this);
     }
 
     public static StatisticsFragment getInstance(Context context) {
