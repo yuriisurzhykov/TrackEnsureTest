@@ -75,7 +75,7 @@ class AddingActivityPresenter(val view: AddingActivityContract.View) : AddingAct
 
     override fun setLocation(latlng: LatLng) {
         modelPlace.location = com.google.maps.model.LatLng(latlng.latitude, latlng.longitude)
-        ReverseGeocoding(context, this, latlng)
+        ReverseGeocoding(this, latlng)
     }
 
     override fun onMapReady(p0: GoogleMap?) {
@@ -84,7 +84,7 @@ class AddingActivityPresenter(val view: AddingActivityContract.View) : AddingAct
 
     override fun onMarkerDragEnd(p0: Marker) {
         modelPlace.location = com.google.maps.model.LatLng(p0.position.latitude, p0.position.longitude)
-        ReverseGeocoding(context, this, p0.position)
+        ReverseGeocoding(this, p0.position)
     }
 
     override fun onMarkerDragStart(p0: Marker?) {

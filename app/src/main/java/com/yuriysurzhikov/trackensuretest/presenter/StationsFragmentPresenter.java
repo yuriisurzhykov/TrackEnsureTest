@@ -21,16 +21,14 @@ import static com.yuriysurzhikov.trackensuretest.view.fragments.StationsFragment
 public class StationsFragmentPresenter implements StationsFragmentContract.Presenter {
 
     private static final String TAG = "StationsFragmentPresen";
-    private Activity activity;
     private StationsFragmentContract.View view;
+
     private StationsFragmentPresenter(StationsFragmentContract.View view) {
-        this.activity = activity;
         this.view = view;
     }
 
     public static StationsFragmentPresenter getInstance(StationsFragmentContract.View view) {
-        StationsFragmentPresenter presenter = new StationsFragmentPresenter(view);
-        return presenter;
+        return new StationsFragmentPresenter(view);
     }
 
     @Override

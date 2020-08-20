@@ -21,7 +21,7 @@ class EditingActivityPresenter(val view: EditingActivityContract.View) : Editing
 
     override fun loadLocation(location: LatLng) {
         modelPlace.location = com.google.maps.model.LatLng(location.latitude, location.longitude)
-        ReverseGeocoding(context, this, location)
+        ReverseGeocoding(this, location)
     }
 
     override fun updateRefueling() {
@@ -83,7 +83,7 @@ class EditingActivityPresenter(val view: EditingActivityContract.View) : Editing
 
     override fun onMarkerDragEnd(p0: Marker) {
         modelPlace.location = com.google.maps.model.LatLng(p0.position.latitude, p0.position.longitude)
-        ReverseGeocoding(context, this, p0.position)
+        ReverseGeocoding(this, p0.position)
     }
 
     override fun onMarkerDragStart(p0: Marker?) {
@@ -96,7 +96,7 @@ class EditingActivityPresenter(val view: EditingActivityContract.View) : Editing
 
     override fun onMapLongClick(p0: LatLng) {
         modelPlace.location = com.google.maps.model.LatLng(modelPlace.location.lat, modelPlace.location.lng)
-        ReverseGeocoding(context, this, p0)
+        ReverseGeocoding(this, p0)
     }
 
     override fun update(placeName: String) {
