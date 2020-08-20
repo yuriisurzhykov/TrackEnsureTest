@@ -26,7 +26,6 @@ public class EditingBottomSheet extends BottomSheetDialogFragment {
     private final String BOTTOM_SHEET_TAG = "bottom_sheet_dialog";
     private static final String TAG = "EditingBottomSheet";
 
-    private Activity activity;
     protected View view;
     private NumberPicker fuelTypes;
     private TextInputEditText fuelAmount;
@@ -37,8 +36,7 @@ public class EditingBottomSheet extends BottomSheetDialogFragment {
     private String[] fuelTypesList;
     private EditingActivityContract.Presenter presenter;
 
-    public EditingBottomSheet(Activity activity, Refueling refueling) {
-        this.activity = activity;
+    public EditingBottomSheet(Refueling refueling) {
         this.refueling = refueling;
     }
 
@@ -50,7 +48,7 @@ public class EditingBottomSheet extends BottomSheetDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateDialog: " + refueling);
-        if(savedInstanceState != null)
+        if(savedInstanceState != null && getArguments() != null)
             refueling = new Gson().fromJson(getArguments().getString("model"), Refueling.class);
         return super.onCreateDialog(savedInstanceState);
     }

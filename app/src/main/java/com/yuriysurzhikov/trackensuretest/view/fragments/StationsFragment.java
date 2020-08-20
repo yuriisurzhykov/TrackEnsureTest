@@ -50,7 +50,7 @@ public class StationsFragment
     private RefuelingRecyclerAdapter recyclerAdapter;
 
     private StationsFragment() {
-        repository = RoomDataProvider.getInstance(getContext());
+        repository = RoomDataProvider.getInstance();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             gasStations = new ArrayList<>();
         }
@@ -74,7 +74,7 @@ public class StationsFragment
             gasStations.clear();
             gasStations.addAll(refuelings);
             Log.d(TAG, "onCreateView: " + refuelings.size());
-            recyclerAdapter = RefuelingRecyclerAdapter.getInstance(getContext(),this);
+            recyclerAdapter = RefuelingRecyclerAdapter.getInstance(this);
             recyclerAdapter.setRefuelingList(new ArrayList<>(gasStations));
             recyclerView = view.findViewById(R.id.stations_recycler);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -97,7 +97,7 @@ public class StationsFragment
 
     @Override
     public void onLongClickListener(int position) {
-        ChoiceDialog dialog = new ChoiceDialog(getContext(), new ChoiceDialog.DialogListener() {
+        ChoiceDialog dialog = new ChoiceDialog(new ChoiceDialog.DialogListener() {
             @Override
             public void onDeleteClickListener(View view) {
                 presenter.deleteRefuelingNote(gasStations.get(position));

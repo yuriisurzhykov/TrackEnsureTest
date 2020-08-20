@@ -35,7 +35,7 @@ object FirebaseDownloader {
                 .build()
     }
 
-    private val roomRepository = RoomDataProvider.getInstance(App.getInstance().applicationContext)
+    private val roomRepository = RoomDataProvider.getInstance()
 
 
     private var listOfPlaces = mutableListOf<Place>()

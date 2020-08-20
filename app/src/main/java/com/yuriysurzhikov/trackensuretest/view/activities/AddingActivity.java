@@ -36,17 +36,19 @@ public class AddingActivity extends AppCompatActivity implements AddingActivityC
         setContentView(R.layout.adding_layout);
         init();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
     }
 
     private void init() {
-        presenter = new AddingActivityPresenter(this, this);
+        presenter = new AddingActivityPresenter(this);
         openDialogButton = findViewById(R.id.open_bottom_sheet);
     }
 
 
     @Override
-    public void openBottomSheet(View view) {
+    public void openBottomSheet(@NotNull View view) {
         dialog = new AddingBottomSheetDialog(this);
         dialog.setPresenter(presenter);
         dialog.show(getSupportFragmentManager(), BOTTOM_SHEET_TAG);

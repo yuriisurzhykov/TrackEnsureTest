@@ -48,8 +48,10 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
     private void init(Bundle bundle) {
         Log.d(TAG, "init: " + bundle);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        presenter = new EditingActivityPresenter(this, this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+        presenter = new EditingActivityPresenter(this);
         if (bundle != null) {
             place = new Gson().fromJson(bundle.getString(ARG_TAB + "place"), Place.class);
             refueling = new Gson().fromJson(bundle.getString(ARG_TAB + "refueling"), Refueling.class);
@@ -105,7 +107,6 @@ public class EditingActivity extends AppCompatActivity implements EditingActivit
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        //this.googleMap.setMyLocationEnabled(true);
         this.googleMap.setOnMapLongClickListener(presenter);
         this.googleMap.setOnMarkerDragListener(presenter);
         presenter.onMapReady(googleMap);

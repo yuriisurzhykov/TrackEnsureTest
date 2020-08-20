@@ -20,9 +20,8 @@ public class ChoiceDialog extends DialogFragment {
     private LinearLayout delete;
     private LinearLayout edit;
 
-    public ChoiceDialog(Context context, DialogListener dialogListener) {
+    public ChoiceDialog(DialogListener dialogListener) {
         this.dialogListener = dialogListener;
-        this.context = context;
     }
 
     @Override

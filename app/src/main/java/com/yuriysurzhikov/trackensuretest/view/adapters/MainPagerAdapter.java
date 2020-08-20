@@ -17,18 +17,16 @@ import java.util.List;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = "MainPagerAdapter";
-    private Context context;
 
     private List<String> pageTitles = new ArrayList<>(Arrays.asList("Stations", "Statistics"));
     private List<ProjectFragment> mainActivityFragments;
 
-    public MainPagerAdapter(@NonNull FragmentManager fm, Context context) {
+    public MainPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
-        this.context = context;
     }
 
-    private MainPagerAdapter(@NonNull FragmentManager fm, Context context, List<ProjectFragment> list) {
-        this(fm, context);
+    private MainPagerAdapter(@NonNull FragmentManager fm, List<ProjectFragment> list) {
+        this(fm);
         mainActivityFragments = list;
     }
 
@@ -53,7 +51,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         private MainPagerAdapter result;
 
         public Builder(FragmentManager fm, Context context) {
-            result = new MainPagerAdapter(fm, context);
+            result = new MainPagerAdapter(fm);
             result.pageTitles.clear();
             result.mainActivityFragments = new ArrayList<>();
         }
@@ -67,7 +65,6 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         public MainPagerAdapter build() {
             if(result.pageTitles.size() == 0 || result.mainActivityFragments.size() == 0)
                 throw new IllegalStateException("Cannot create MainPagerAdapter without a single fragment!");
-            Log.d(TAG, "build: " + result.pageTitles.get(0));
             return result;
         }
     }

@@ -29,7 +29,7 @@ public class MainRepository {
     private static MainRepository instance = null;
 
     private MainRepository() {
-        roomDataProvider = RoomDataProvider.getInstance(App.getInstance().getApplicationContext());
+        roomDataProvider = RoomDataProvider.getInstance();
         firestoreRepository = new FirestoreRepository();
     }
 

@@ -18,17 +18,15 @@ import java.util.List;
 public class RefuelingRecyclerAdapter extends RecyclerView.Adapter<RefuelingRecyclerAdapter.RefuelingViewHolder> {
 
     private List<Refueling> list;
-    private Context context;
     private OnStationLongClickListener longClickListener;
     private static final String TAG = "RefuelingRecyclerAdapte";
 
-    private RefuelingRecyclerAdapter(Context context, OnStationLongClickListener listener) {
-        this.context = context;
+    private RefuelingRecyclerAdapter(OnStationLongClickListener listener) {
         this.longClickListener = listener;
     }
 
-    public static RefuelingRecyclerAdapter getInstance(Context context, OnStationLongClickListener listener) {
-        return new RefuelingRecyclerAdapter(context, listener);
+    public static RefuelingRecyclerAdapter getInstance(OnStationLongClickListener listener) {
+        return new RefuelingRecyclerAdapter(listener);
     }
 
     @NonNull
@@ -52,7 +50,7 @@ public class RefuelingRecyclerAdapter extends RecyclerView.Adapter<RefuelingRecy
         list = refuelingList;
     }
 
-    public class RefuelingViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    public static class RefuelingViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
 
         private View view;
         private OnStationLongClickListener clickListener;

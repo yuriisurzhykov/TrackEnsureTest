@@ -48,7 +48,7 @@ public class StatisticsRecyclerAdapter extends RecyclerView.Adapter<StatisticsRe
         return statistics.size();
     }
 
-    protected class StatisticsViewHolder extends RecyclerView.ViewHolder {
+    static class StatisticsViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private StatisticsView statisticsView;
 

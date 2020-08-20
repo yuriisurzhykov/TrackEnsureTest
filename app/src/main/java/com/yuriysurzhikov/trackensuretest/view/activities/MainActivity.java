@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         new Synchronizer().sync();
         ViewPager viewPager = findViewById(R.id.main_viewpager);
         MainPagerAdapter pagerAdapter = new MainPagerAdapter.Builder(getSupportFragmentManager(), this)
-                .addFragment("Refueling", StationsFragment.getInstance(this))
-                .addFragment("Statistics", StatisticsFragment.getInstance(this))
+                .addFragment("Refueling", StationsFragment.getInstance())
+                .addFragment("Statistics", StatisticsFragment.getInstance())
                 .build();
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = findViewById(R.id.main_tab_layout);

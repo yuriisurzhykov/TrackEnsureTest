@@ -25,20 +25,18 @@ public class AddingBottomSheetDialog extends BottomSheetDialogFragment implement
     private final String BOTTOM_SHEET_TAG = "bottom_sheet_dialog";
     private static final String TAG = "AddingBottomSheetDialog";
 
-    protected Activity activity;
     protected View view;
-    protected NumberPicker fuelTypes;
+    private NumberPicker fuelTypes;
     protected TextInputEditText fuelAmount;
-    protected TextInputEditText providerName;
-    protected TextInputEditText costText;
+    private TextInputEditText providerName;
+    private TextInputEditText costText;
     protected Refueling refueling;
 
-    protected String[] fuelTypesList;
+    private String[] fuelTypesList;
 
     private AddingActivityContract.Presenter presenter;
 
-    public AddingBottomSheetDialog(Activity activity) {
-        this.activity = activity;
+    public AddingBottomSheetDialog() {
     }
 
     public void setPresenter(AddingActivityContract.Presenter presenter) {
@@ -61,7 +59,7 @@ public class AddingBottomSheetDialog extends BottomSheetDialogFragment implement
         setUpPickers();
     }
 
-    protected void setUpPickers() {
+    private void setUpPickers() {
         fuelTypesList = getResources().getStringArray(R.array.fuel_types);
         fuelTypes = view.findViewById(R.id.fuel_type_picker);
         fuelTypes.setMinValue(0);
