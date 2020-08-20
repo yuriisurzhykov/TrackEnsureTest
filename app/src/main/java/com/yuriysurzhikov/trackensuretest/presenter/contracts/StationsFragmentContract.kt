@@ -14,8 +14,8 @@ interface StationsFragmentContract {
     }
 
     interface Presenter {
-        fun openAddingActivity(context: Context)
-        fun openEditingActivity(refueling: Refueling, place: Place, context: Context)
+        fun openAddingActivity()
+        fun openEditingActivity(refueling: Refueling, place: Place)
         fun deleteRefuelingNote(refueling: Refueling)
     }
 }

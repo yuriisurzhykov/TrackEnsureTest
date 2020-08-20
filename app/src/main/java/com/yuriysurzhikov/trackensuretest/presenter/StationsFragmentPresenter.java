@@ -23,13 +23,13 @@ public class StationsFragmentPresenter implements StationsFragmentContract.Prese
     private static final String TAG = "StationsFragmentPresen";
     private Activity activity;
     private StationsFragmentContract.View view;
-    private StationsFragmentPresenter(Activity activity, StationsFragmentContract.View view) {
+    private StationsFragmentPresenter(StationsFragmentContract.View view) {
         this.activity = activity;
         this.view = view;
     }
 
-    public static StationsFragmentPresenter getInstance(Activity activity, StationsFragmentContract.View view) {
-        StationsFragmentPresenter presenter = new StationsFragmentPresenter(activity, view);
+    public static StationsFragmentPresenter getInstance(StationsFragmentContract.View view) {
+        StationsFragmentPresenter presenter = new StationsFragmentPresenter(view);
         return presenter;
     }
 

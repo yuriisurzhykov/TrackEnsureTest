@@ -1,6 +1,5 @@
 package com.yuriysurzhikov.trackensuretest.model.roomRepository;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -8,7 +7,6 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
-
 import com.yuriysurzhikov.trackensuretest.config.App;
 import com.yuriysurzhikov.trackensuretest.model.MainRepositoryContract;
 import com.yuriysurzhikov.trackensuretest.model.entities.Place;
@@ -26,20 +24,23 @@ public class RoomDataProvider implements MainRepositoryContract {
 
     private static final String TAG = "RoomDataProvider";
 
-    private Context context;
     private LocalDatabase database;
     private LiveData<List<Refueling>> gasStations;
     private LiveData<List<Place>> places;
 
-    private RoomDataProvider(Context context) {
-        this.context = context;
+    private RoomDataProvider() {
         database = App.getInstance().getDatabase();
-        gasStations = database.refuelingDao().getAll();
-        places = database.placeDao().getAll();
+        try {
+            gasStations = new GetRefuelingLiveData(database).execute().get();
+            places = new GetPlacesLiveData(database).execute().get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public static RoomDataProvider getInstance(Context context) {
-        return new RoomDataProvider(context);
+    public static RoomDataProvider getInstance() {
+        return new RoomDataProvider();
     }
 
     @NotNull
@@ -117,6 +118,33 @@ public class RoomDataProvider implements MainRepositoryContract {
                 return returned;
             }
         });
+    }
+
+    private static class GetPlacesLiveData extends AsyncTask<Void, Void, LiveData<List<Place>>> {
+        private LocalDatabase db;
+
+        public GetPlacesLiveData(LocalDatabase db) {
+            this.db = db;
+        }
+
+        @Override
+        protected LiveData<List<Place>> doInBackground(Void... voids) {
+            return db.placeDao().getAll();
+        }
+    }
+
+    private static class GetRefuelingLiveData extends AsyncTask<Void, Void, LiveData<List<Refueling>>> {
+
+        private LocalDatabase db;
+
+        public GetRefuelingLiveData(LocalDatabase db) {
+            this.db = db;
+        }
+
+        @Override
+        protected LiveData<List<Refueling>> doInBackground(Void... voids) {
+            return db.refuelingDao().getAll();
+        }
     }
 
     private static class GetPlaceByAddressTask extends AsyncTask<String, Void, Place> {

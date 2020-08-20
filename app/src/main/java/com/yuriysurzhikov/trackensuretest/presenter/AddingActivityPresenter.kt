@@ -13,7 +13,7 @@ import com.yuriysurzhikov.trackensuretest.model.gecoding.ReverseGeocoding
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.AddingActivityContract
 import com.yuriysurzhikov.trackensuretest.utils.Observer
 
-class AddingActivityPresenter(val view: AddingActivityContract.View, val context: Context) : AddingActivityContract.Presenter, Observer {
+class AddingActivityPresenter(val view: AddingActivityContract.View) : AddingActivityContract.Presenter, Observer {
 
     val BOTTOM_SHEET_TAG = "bottom_sheet_dialog"
     private var modelRefuel: Refueling = Refueling()

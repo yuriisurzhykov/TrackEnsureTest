@@ -41,7 +41,6 @@ public class StationsFragment
 
     public static final String ARG_TAB = "ARG_TAB";
     private static final String HINT_TAB = "HINT_TAB";
-    private Context context;
     private View view;
     private List<Refueling> gasStations;
     private MainRepositoryContract repository;
@@ -50,20 +49,19 @@ public class StationsFragment
     private RecyclerView recyclerView;
     private RefuelingRecyclerAdapter recyclerAdapter;
 
-    private StationsFragment(Context context) {
-        this.context = context;
-        repository = RoomDataProvider.getInstance(context);
+    private StationsFragment() {
+        repository = RoomDataProvider.getInstance(getContext());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             gasStations = new ArrayList<>();
         }
-        presenter = StationsFragmentPresenter.getInstance(getActivity(), this);
+        presenter = StationsFragmentPresenter.getInstance(this);
     }
 
 
-    public static StationsFragment getInstance(Context context) {
+    public static StationsFragment getInstance() {
         Bundle bundle = new Bundle();
         bundle.putCharSequence(ARG_TAB, "Gas stations fragment");
-        StationsFragment fragment = new StationsFragment(context);
+        StationsFragment fragment = new StationsFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -76,12 +74,13 @@ public class StationsFragment
             gasStations.clear();
             gasStations.addAll(refuelings);
             Log.d(TAG, "onCreateView: " + refuelings.size());
-            recyclerAdapter = RefuelingRecyclerAdapter.getInstance(context, this);
+            recyclerAdapter = RefuelingRecyclerAdapter.getInstance(getContext(),this);
             recyclerAdapter.setRefuelingList(new ArrayList<>(gasStations));
             recyclerView = view.findViewById(R.id.stations_recycler);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(recyclerAdapter);
+            recyclerAdapter.notifyDataSetChanged();
         });
         return view;
     }
@@ -93,7 +92,7 @@ public class StationsFragment
         if (savedInstanceState != null)
             view1.setText(savedInstanceState.getCharSequence(ARG_TAB));
         View floatingButton = view.findViewById(R.id.add_station_button);
-        floatingButton.setOnClickListener(v -> presenter.openAddingActivity(context));
+        floatingButton.setOnClickListener(v -> presenter.openAddingActivity());
     }
 
     @Override
@@ -108,8 +107,7 @@ public class StationsFragment
             public void onEditClickListener(View view) {
                 presenter.openEditingActivity(
                         gasStations.get(position),
-                        MainRepository.getInstance().getPlaceByAddress(gasStations.get(position).getAddressCreator()),
-                        context
+                        MainRepository.getInstance().getPlaceByAddress(gasStations.get(position).getAddressCreator())
                 );
             }
         });

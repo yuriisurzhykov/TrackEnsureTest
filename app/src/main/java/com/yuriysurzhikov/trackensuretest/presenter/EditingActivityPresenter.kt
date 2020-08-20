@@ -12,7 +12,7 @@ import com.yuriysurzhikov.trackensuretest.model.gecoding.ReverseGeocoding
 import com.yuriysurzhikov.trackensuretest.presenter.contracts.EditingActivityContract
 import com.yuriysurzhikov.trackensuretest.utils.Observer
 
-class EditingActivityPresenter(val view: EditingActivityContract.View, val context: Context) : EditingActivityContract.Presenter, Observer {
+class EditingActivityPresenter(val view: EditingActivityContract.View) : EditingActivityContract.Presenter, Observer {
 
     private var modelRefuelOld = Refueling()
     private var modelRefuelNew = Refueling()

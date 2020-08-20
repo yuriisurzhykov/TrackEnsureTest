@@ -24,23 +24,17 @@ public class StatisticsFragment extends ProjectFragment implements StatisticsFra
     private static final String TAG = "StatisticsFragment";
 
     private static final String ARG_TAB = "ARG_TAB";
-    private Context context;
     private View view;
     private RecyclerView recyclerView;
     private StatisticsRecyclerAdapter recyclerAdapter;
     private StatisticsFragmentContract.Presenter presenter;
 
-    private StatisticsFragment(Context context) {
-        this.context = context;
+    private StatisticsFragment() {
         presenter = new StatisticsFragmentPresenter(this);
     }
 
-    public static StatisticsFragment getInstance(Context context) {
-        Bundle bundle = new Bundle();
-        bundle.putCharSequence(ARG_TAB, "Statistics fragment");
-        StatisticsFragment fragment = new StatisticsFragment(context);
-        fragment.setArguments(bundle);
-        return new StatisticsFragment(context);
+    public static StatisticsFragment getInstance() {
+        return new StatisticsFragment();
     }
 
     @Nullable
@@ -58,10 +52,11 @@ public class StatisticsFragment extends ProjectFragment implements StatisticsFra
             view1.setText(savedInstanceState.getCharSequence(ARG_TAB));
         MainRepository.getInstance().highlightStatistics().observe(getViewLifecycleOwner(), statisticsElements -> {
             Log.d(TAG, "onViewCreated: statisticsElements - " + statisticsElements.size());
-            recyclerAdapter = new StatisticsRecyclerAdapter(context, statisticsElements);
+            recyclerAdapter = new StatisticsRecyclerAdapter(getContext(), statisticsElements);
             recyclerView = view.findViewById(R.id.statistics_recycler);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(recyclerAdapter);
+            recyclerAdapter.notifyDataSetChanged();
         });
     }
 }
