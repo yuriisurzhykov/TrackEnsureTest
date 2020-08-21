@@ -1,4 +1,4 @@
-| # TrackEnsure Test application⛽ |
+<center> # TrackEnsure Test application⛽ </center>
 ### This is a test case for the Android Junior developer position at TrackEnsure.
 You can follow the development of the app on my Trello page [TrackEnsure Test](https://trello.com/b/WyIa4h1m)
 ### What does this app doing?
